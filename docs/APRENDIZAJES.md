@@ -40,6 +40,7 @@
 - Fichas técnicas en PDF descargables por modelo (`fichas` en el contenido, carpeta `plantilla/fichas/<marca>`).
 - Notas de precio por contenido (`notaPrecio`, `notaVersiones`): la lista de Jeep es "sugerida con impuestos", no "con bono incluido" como Citroën.
 - Fotos sacadas de los PDF oficiales (pdfimages + máscara para los recortes sobre negro).
+- Colores de Jeep: grises carbón + verde oliva + verde salvia, sacados de sus catálogos. El verde de WhatsApp NO se cambia (es el que la gente reconoce). Nuevos opcionales en la ficha: `colores.fondo/raya/divisor/suave/cierre` y `marcasTexto`.
 - OJO: los PDF que llegan por WhatsApp se revisan página por página antes de publicarlos: uno traía la cédula de una clienta.
 - OJO: las fichas del Wrangler traen la página de colores del Fiat Fastback: no confiar en la ficha sin mirarla.
 

@@ -153,12 +153,14 @@ const TEMAS = {
     tinta: c.tinta || "#2B2E33",
     hondo: c.apoyo || "#1B1F24",
     papel: "#FFFFFF",
-    fondo: "#F4F5F7",
+    // El gris de las franjas se puede afinar por marca (Jeep lo quiere un
+    // poco más verdoso, como sus catálogos). Sin dato, el de siempre.
+    fondo: c.fondo || "#F4F5F7",
     tarjeta: "#FFFFFF",
     pie: "#FFFFFF",
-    raya: "#E2E5EA",
-    divisor: "#DCE0E6",
-    suave: "#6B7280",
+    raya: c.raya || "#E2E5EA",
+    divisor: c.divisor || "#DCE0E6",
+    suave: c.suave || "#6B7280",
     vidrio: "rgba(255,255,255,.96)",
   }),
   oscuro: () => ({
@@ -289,6 +291,7 @@ function estilos(marca) {
   --suave:${t.suave};
   --vidrio:${t.vidrio};
   --titulos:${f.titulos};
+  --cierre:${c.cierre || t.hondo};
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -556,7 +559,7 @@ header{position:sticky;top:0;z-index:50;background:var(--vidrio);
 .faq summary::after{content:"+";color:var(--marca);font-size:21px;line-height:1;flex:none}
 .faq details[open] summary::after{content:"−"}
 .faq p{color:var(--suave);margin:11px 0 0}
-.cierre{background:var(--hondo);color:#fff;text-align:center}
+.cierre{background:var(--cierre);color:#fff;text-align:center}
 .cierre p{color:#C9CDD4;max-width:56ch;margin:14px auto 26px}
 .boletin form{display:flex;gap:9px;flex-wrap:wrap;justify-content:center;margin-top:18px}
 .boletin input{padding:13px 16px;border-radius:999px;border:1px solid var(--raya);
@@ -692,7 +695,7 @@ ${
       rutaLegal
         ? `<p style="font-size:12.5px;color:var(--suave);margin:12px auto 0;max-width:52ch">
       Al dejar tus datos autorizas que ${esc(marca.asesor)} te contacte sobre vehículos
-      ${esc(marca.marca)}. Puedes pedir que los borre cuando quieras.
+      ${esc(marca.marcasTexto || marca.marca)}. Puedes pedir que los borre cuando quieras.
       <a href="${esc(rutaLegal)}">Cómo se tratan tus datos</a>.
     </p>`
         : ""
@@ -709,7 +712,7 @@ ${
       <div class="logo" style="margin-bottom:8px"><span class="marca-punto"></span>${esc(marca.nombrePublico)}</div>
       <div style="display:flex;align-items:center;gap:10px">
         ${avatar(marca, { claro: true })}
-        <span>${esc(marca.asesor)} · asesor comercial ${esc(marca.marca)} en Medellín</span>
+        <span>${esc(marca.asesor)} · asesor comercial ${esc(marca.marcasTexto || marca.marca)} en Medellín</span>
       </div>
       ${chipOrigen(marca, { claro: true }) ? `<div style="margin-top:10px">${chipOrigen(marca, { claro: true })}</div>` : ""}
       ${avisos.map((a) => `<div style="margin-top:6px;max-width:58ch">${esc(a)}</div>`).join("\n      ")}

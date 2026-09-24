@@ -37,11 +37,17 @@ window.MARCA = {
     "inicialMaximaPct": 50
   },
   "colores": {
-    "tinta": "#1F231B",
-    "acento": "#C8A86B",
-    "marca": "#4B5A34",
-    "apoyo": "#161A13",
-    "whatsapp": "#1FBE57"
+    "_": "Grises y verdes de Jeep, sacados de sus catálogos: gris carbón para el hero y el cierre, verde oliva para la marca, verde salvia para los precios sobre fondo oscuro. El verde de WhatsApp se queda: es el que la gente reconoce como botón.",
+    "tinta": "#1F2326",
+    "apoyo": "#2B2E30",
+    "marca": "#3F5122",
+    "acento": "#9DB067",
+    "fondo": "#EEF0EB",
+    "raya": "#DDE1D8",
+    "divisor": "#D5DAD0",
+    "suave": "#5F665C",
+    "whatsapp": "#1FBE57",
+    "cierre": "#34431C"
   },
   "pesos": {},
   "paginasPortada": [],

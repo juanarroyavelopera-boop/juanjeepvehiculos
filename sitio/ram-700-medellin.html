@@ -19,21 +19,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --tinta:#1F231B;
-  --marca:#4B5A34;
-  --acento:#C8A86B;
-  --apoyo:#161A13;
+  --tinta:#1F2326;
+  --marca:#3F5122;
+  --acento:#9DB067;
+  --apoyo:#2B2E30;
   --wa:#1FBE57;
-  --hondo:#161A13;
+  --hondo:#2B2E30;
   --papel:#FFFFFF;
-  --fondo:#F4F5F7;
+  --fondo:#EEF0EB;
   --tarjeta:#FFFFFF;
   --pie:#FFFFFF;
-  --raya:#E2E5EA;
-  --divisor:#DCE0E6;
-  --suave:#6B7280;
+  --raya:#DDE1D8;
+  --divisor:#D5DAD0;
+  --suave:#5F665C;
   --vidrio:rgba(255,255,255,.96);
   --titulos:'Source Serif 4',Georgia,'Times New Roman',serif;
+  --cierre:#34431C;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -301,7 +302,7 @@ header{position:sticky;top:0;z-index:50;background:var(--vidrio);
 .faq summary::after{content:"+";color:var(--marca);font-size:21px;line-height:1;flex:none}
 .faq details[open] summary::after{content:"−"}
 .faq p{color:var(--suave);margin:11px 0 0}
-.cierre{background:var(--hondo);color:#fff;text-align:center}
+.cierre{background:var(--cierre);color:#fff;text-align:center}
 .cierre p{color:#C9CDD4;max-width:56ch;margin:14px auto 26px}
 .boletin form{display:flex;gap:9px;flex-wrap:wrap;justify-content:center;margin-top:18px}
 .boletin input{padding:13px 16px;border-radius:999px;border:1px solid var(--raya);
@@ -596,7 +597,7 @@ h2{font-size:clamp(26px,3.8vw,38px)}
       </a>
       <a class="tarjeta" href="ram-1500-medellin.html" style="text-decoration:none">
         <div class="cuerpo">
-          <h3>1500</h3>
+          <h3>RAM 1500</h3>
           <p style="font-size:14px;color:var(--suave);margin:0">La pick-up grande: V6 3.6 eTorque de 305 HP, caja automática de 8 y 4x4, en Big Horn y Night Edition.</p>
         </div>
       </a>
@@ -625,7 +626,7 @@ h2{font-size:clamp(26px,3.8vw,38px)}
     </form>
     <p style="font-size:12.5px;color:var(--suave);margin:12px auto 0;max-width:52ch">
       Al dejar tus datos autorizas que Juan Camilo te contacte sobre vehículos
-      Jeep. Puedes pedir que los borre cuando quieras.
+      Jeep y RAM. Puedes pedir que los borre cuando quieras.
       <a href="jeep-notas-legales-medellin.html">Cómo se tratan tus datos</a>.
     </p>
     <p id="boletin-estado" style="font-size:13.5px;color:var(--suave);margin-top:12px" hidden></p>
@@ -638,7 +639,7 @@ h2{font-size:clamp(26px,3.8vw,38px)}
       <div class="logo" style="margin-bottom:8px"><span class="marca-punto"></span>Juan Jeep Vehículos</div>
       <div style="display:flex;align-items:center;gap:10px">
         <span class="avatar claro"><img src="fotos/juan-avatar.jpg" alt="Juan Camilo, asesor Jeep y RAM en Medellín" loading="lazy" decoding="async"></span>
-        <span>Juan Camilo · asesor comercial Jeep en Medellín</span>
+        <span>Juan Camilo · asesor comercial Jeep y RAM en Medellín</span>
       </div>
       
       <div style="margin-top:6px;max-width:58ch">Sitio de un asesor comercial independiente. No es el sitio oficial de Jeep, de RAM ni de Stellantis.</div>

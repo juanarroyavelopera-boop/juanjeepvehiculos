@@ -194,7 +194,7 @@ ${
         .map(
           (m) => `<a class="tarjeta" href="${esc(rel(m.pagina))}" style="text-decoration:none">
         <div class="cuerpo">
-          <h3>${esc(m.nombre)}</h3>
+          <h3>${esc(m.marca ? `${m.marca} ${m.nombre}` : m.nombre)}</h3>
           <p style="font-size:14px;color:var(--suave);margin:0">${esc((contenido.modelos[m.linea] || {}).gancho || "")}</p>
         </div>
       </a>`,
