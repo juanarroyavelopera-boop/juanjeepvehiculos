@@ -1,0 +1,10 @@
+{
+  "name": "juanjeepvehiculos",
+  "private": true,
+  "description": "Página de ventas Jeep y RAM en Medellín — Juan Camilo",
+  "scripts": {
+    "construir": "node plantilla/construir.js jeep sitio",
+    "comprobar": "node plantilla/construir.js jeep --comprobar",
+    "ver": "python3 -m http.server 8080 --directory sitio"
+  }
+}

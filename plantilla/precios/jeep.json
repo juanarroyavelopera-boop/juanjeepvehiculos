@@ -1,0 +1,59 @@
+{
+  "_": "Respaldo de la Lista de Precios Sugerida de Automotriz Italoamérica S.A.S., vigente desde el 1 de agosto de 2026 (PVP con impuestos). El CRM manda: catalogo-vivo.js pisa estos valores al cargar. Solo Jeep y RAM; Fiat no va en este sitio.",
+  "fuente": "LISTA DE PRECIOS FCA AGO-26 PVP",
+  "lineas": {
+    "AVENGER": {
+      "desde": 99900000,
+      "versiones": [
+        ["Avenger 1.2T Altitude MT", 99900000, "2025 · 1.2 turbo · 100 CV · manual de 6"],
+        ["Avenger MHEV Altitude", 109990000, "2026 · híbrido ligero 48V · 110 HP · e-DCT6"],
+        ["Avenger MHEV Summit", 121990000, "2026 · híbrido ligero 48V · 110 HP · e-DCT6 · techo solar"],
+        ["Avenger BEV Summit", 162990000, "2025 · 100% eléctrico · 154 HP · 400 km WLTP"]
+      ]
+    },
+    "COMPASS": {
+      "desde": 135990000,
+      "versiones": [
+        ["Compass 1.3T Longitude", 135990000, "2026 / 2027 · 1.3 turbo · 173 HP · automática de 6"],
+        ["Compass 1.3T Limited Plus", 151990000, "2026 / 2027 · 1.3 turbo · 173 HP · automática de 6"],
+        ["Compass 2.0T Blackhawk", 185990000, "2026 / 2027 · 2.0 turbo"]
+      ]
+    },
+    "COMMANDER": {
+      "desde": 185990000,
+      "versiones": [
+        ["Commander 1.3T Overland", 185990000, "2026 · 1.3 turbo · 7 puestos"]
+      ]
+    },
+    "WRANGLER": {
+      "desde": 322990000,
+      "versiones": [
+        ["Wrangler Unlimited 2.0T Sport AT", 322990000, "2025 · 4 puertas · 270 HP · automática de 8 · 4x4"],
+        ["Wrangler Unlimited 2.0T Sport AT Condor", 328990000, "2025 · 4 puertas · 270 HP · automática de 8 · 4x4"],
+        ["Wrangler 2.0T Rubicon AT", 350990000, "2025 · 2 puertas · 270 HP · automática de 8 · 4x4 Rock-Trac"],
+        ["Wrangler Unlimited 2.0T Rubicon AT", 364990000, "2025 / 2026 · 4 puertas · 270 HP · automática de 8 · 4x4 Rock-Trac"]
+      ]
+    },
+    "GLADIATOR": {
+      "desde": 375990000,
+      "versiones": [
+        ["Gladiator Rubicon 4x4", 375990000, "2025 / 2026 · pick-up · 4x4"]
+      ]
+    },
+    "RAM-700": {
+      "desde": 75990000,
+      "versiones": [
+        ["RAM 700 1.3 Cabina Sencilla SLT MT", 75990000, "2026 / 2027 · cabina sencilla · manual de 5"],
+        ["RAM 700 1.3 Doble Cabina Big Horn MT", 92990000, "2026 / 2027 · 1.3 Firefly · 98 HP · manual de 5"],
+        ["RAM 700 1.3 Doble Cabina Big Horn CVT", 95990000, "2026 / 2027 · 1.3 Firefly · 98 HP · CVT de 7"]
+      ]
+    },
+    "RAM-1500": {
+      "desde": 277990000,
+      "versiones": [
+        ["RAM 1500 3.6 eTorque Big Horn Crew Cab", 277990000, "2026 · V6 híbrido ligero · 305 HP · automática de 8 · 4x4"],
+        ["RAM 1500 3.6 eTorque Big Horn Night Edition", 287990000, "2026 · V6 híbrido ligero · 305 HP · automática de 8 · 4x4"]
+      ]
+    }
+  }
+}

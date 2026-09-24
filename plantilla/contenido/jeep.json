@@ -1,0 +1,611 @@
+{
+  "_": "Contenido de Juan Jeep Vehículos: textos y especificaciones. Las specs salen de las fichas oficiales que mandó Juan (sep 2026). Los PRECIOS no están acá: los manda el CRM en vivo y el respaldo está en precios/jeep.json.",
+  "asesor": {
+    "cargo": "Asesor Jeep y RAM en Medellín",
+    "foto": {
+      "src": "juan-asesor.jpg",
+      "webp": "juan-asesor.webp",
+      "alt": "Juan Camilo, asesor comercial Jeep y RAM en Medellín"
+    },
+    "titulo": "Te atiendo yo, de principio a fin",
+    "bio": "Soy Juan Camilo. Cuando me escribes no te pasa un robot ni un call center: te contesto yo. Te digo el precio del día, qué versión te conviene según cómo manejas y qué bono hay vigente, y te acompaño hasta que te entregan las llaves.",
+    "promesas": [
+      {
+        "icono": "persona",
+        "titulo": "Un solo asesor",
+        "apoyo": "La misma persona desde la primera pregunta hasta la entrega."
+      },
+      {
+        "icono": "reloj",
+        "titulo": "Respuesta rápida",
+        "apoyo": "Por WhatsApp, en horario extendido, todos los días."
+      },
+      {
+        "icono": "cambio",
+        "titulo": "Recibo tu carro",
+        "apoyo": "Como parte de pago, de cualquier marca."
+      },
+      {
+        "icono": "billete",
+        "titulo": "Crédito a tu medida",
+        "apoyo": "Te ayudo a buscar la mejor cuota con las entidades aliadas."
+      },
+      {
+        "icono": "montana",
+        "titulo": "Te explico el 4x4",
+        "apoyo": "Qué versión necesitas de verdad, sin venderte lo que no vas a usar."
+      },
+      {
+        "icono": "mapa",
+        "titulo": "Medellín y toda Colombia",
+        "apoyo": "Cotizas y avanzas desde donde estés."
+      }
+    ]
+  },
+  "hero": {
+    "cinta": "Asesor directo · Medellín",
+    "titulo": "Tu Jeep o tu RAM, con un asesor que te conoce por tu nombre",
+    "bajada": "Soy Juan Camilo. Te asesoro en Jeep y RAM: te digo el precio real del día, la versión que te sirve y cómo te queda la cuota. Sin formularios que nadie contesta.",
+    "boton": "Hablar con Juan",
+    "mensaje": "Hola Juan, vi tu página y quiero que me asesores con un Jeep o una RAM.",
+    "desde": "Estrena desde",
+    "desdeNota": "RAM 700 cabina sencilla · Jeep desde el Avenger",
+    "ventajas": [
+      {
+        "icono": "persona",
+        "titulo": "Te atiendo yo",
+        "apoyo": "No un robot ni un call center"
+      },
+      {
+        "icono": "cambio",
+        "titulo": "Recibo tu carro",
+        "apoyo": "Jeep o de cualquier marca"
+      },
+      {
+        "icono": "billete",
+        "titulo": "Crédito a tu medida",
+        "apoyo": "Hasta 84 meses"
+      }
+    ]
+  },
+  "portafolio": {
+    "titulo": "Jeep y RAM en Medellín",
+    "bajada": "Precios de la lista vigente con impuestos incluidos. Escríbeme y te confirmo el precio del día y el bono del mes."
+  },
+  "otrosTitulo": "Otros Jeep y RAM en Medellín",
+  "credito": {
+    "titulo": "¿Cuánto te quedaría la cuota?",
+    "texto": "Con tu cédula y unos datos básicos te digo si quedas preaprobado. Hasta 84 meses, y la inicial la ajustamos a lo que tengas.",
+    "pasos": [
+      "Me escribes por WhatsApp",
+      "Me das tu cédula y unos datos",
+      "Te digo si quedas preaprobado"
+    ],
+    "promesaCorta": "Inicial a tu medida y"
+  },
+  "_credito": "Dice \"preaprobado\", no \"aprobado\": la aprobación final la da la financiera con documentos.",
+  "faq": [
+    [
+      "¿Cuál es el Jeep más económico?",
+      "El Avenger 1.2 Turbo Altitude con caja manual, según la lista vigente. Escríbeme y te confirmo el precio del día y si hay bono este mes."
+    ],
+    [
+      "¿Reciben mi carro como parte de pago?",
+      "Sí. Me mandas fotos, kilometraje y año por WhatsApp y te doy una idea del valor antes de que vayas a la sala."
+    ],
+    [
+      "¿Puedo comprar si no vivo en Medellín?",
+      "Sí. La cotización, el estudio de crédito y buena parte del trámite los hacemos por WhatsApp. Te digo cómo es la entrega según tu ciudad."
+    ],
+    [
+      "¿Qué diferencia hay entre el Wrangler Sport y el Rubicon?",
+      "Los dos tienen el 2.0 turbo de 270 HP y caja automática de 8. El Rubicon trae la transferencia Rock-Trac con reducción 4:1, bloqueo de diferenciales, barra estabilizadora desconectable y llantas de barro: es para trocha de verdad. Si tu plan es ciudad y paseo, el Sport te sobra."
+    ]
+  ],
+  "galeriaNota": "Fotos oficiales de la marca, de referencia. El color y el equipamiento cambian según la versión.",
+  "legal": {
+    "_": "El responsable y el correo los llena Juan: sin ellos el aviso de datos no sirve, y el generador avisa.",
+    "responsable": "",
+    "correo": "",
+    "ciudad": "Medellín, Colombia",
+    "pie": [
+      "Sitio de un asesor comercial independiente. No es el sitio oficial de Jeep, de RAM ni de Stellantis.",
+      "Precios sugeridos en pesos colombianos, con impuestos incluidos. Sujetos a cambio sin previo aviso y a disponibilidad de inventario.",
+      "Imágenes de referencia. El color, los rines y el equipamiento cambian según la versión."
+    ],
+    "secciones": [
+      [
+        "De quién es este sitio",
+        "Este sitio es de {responsable}, asesor comercial independiente de vehículos Jeep y RAM en Medellín. No es el sitio oficial de Jeep, de RAM ni de Stellantis, y no habla en nombre de las marcas. Jeep y RAM son marcas registradas de FCA US LLC. Las fotos y las fichas técnicas son material oficial de las marcas y se usan para informar sobre los vehículos que ofrezco."
+      ],
+      [
+        "Los precios",
+        "Los precios son los sugeridos por el importador, en pesos colombianos, con IVA e impuesto al consumo incluidos. NO incluyen matrícula, SOAT, seguro, accesorios ni gastos de traspaso, salvo que se diga lo contrario. Cambian sin previo aviso según la fecha de facturación y dependen de la disponibilidad de cada versión, año modelo y color. El precio que vale es el de la cotización firmada, no el de esta página."
+      ],
+      [
+        "El simulador de crédito",
+        "La cuota que muestra el simulador es un cálculo ilustrativo hecho con una tasa de ejemplo. NO es una oferta de crédito, ni una aprobación, ni un compromiso de ninguna entidad financiera. La tasa, el plazo, la cuota y la aprobación los define la entidad después de estudiar tu caso."
+      ],
+      [
+        "Las imágenes y las fichas técnicas",
+        "Las imágenes son de referencia. El color, los rines, el tapizado y el equipamiento pueden variar según la versión, el año y lo que haya disponible. Las especificaciones salen de las fichas técnicas de Jeep y RAM y el fabricante puede cambiarlas sin previo aviso. Antes de comprar, confirmamos juntos la ficha exacta del vehículo que te van a entregar."
+      ],
+      [
+        "Tus datos personales",
+        "Cuando dejas tu nombre y tu WhatsApp en esta página, o cuando me escribes por WhatsApp, autorizas que los use para contactarte, enviarte cotizaciones y avisarte de precios y promociones de vehículos Jeep y RAM.\n\nResponsable del tratamiento: {responsable}, {ciudad}. Correo de contacto: {correo}.\n\nTus datos no se venden. Solo se comparten con quien haga falta para la venta que tú pediste: el concesionario que factura y, si pides crédito, la entidad financiera.\n\nTienes derecho a conocer, actualizar, rectificar y suprimir tus datos, y a revocar esta autorización en cualquier momento, escribiendo a {correo}. Así lo dicen la Ley 1581 de 2012 y el Decreto 1377 de 2013."
+      ],
+      [
+        "Las cookies y la medición",
+        "Esta página guarda en tu navegador un identificador anónimo para saber de dónde llegaste (por ejemplo, de un anuncio) y si tocaste un botón de WhatsApp. Sirve para saber qué publicidad funciona, no para identificarte. Puedes borrar las cookies desde tu navegador cuando quieras."
+      ]
+    ]
+  },
+  "modelos": {
+    "AVENGER": {
+      "titular": "Jeep Avenger",
+      "gancho": "El Jeep compacto para la ciudad: a gasolina, híbrido ligero o 100% eléctrico, con 6 airbags y frenado autónomo en todas las versiones.",
+      "paraQuien": "Para quien se mueve por Medellín todos los días y quiere un Jeep de verdad en un tamaño que parquea fácil. Si quieres gastar menos gasolina, el híbrido ligero de 48V con caja de doble embrague es el punto medio; si cargas en casa y no sales mucho de la ciudad, el eléctrico de 400 km de autonomía es el que más ahorra.",
+      "destacados": [
+        "Gasolina, híbrido o eléctrico",
+        "6 airbags",
+        "Frenado autónomo"
+      ],
+      "specs": [
+        [
+          "Carrocería",
+          "SUV compacta, 5 pasajeros"
+        ],
+        [
+          "Motor Altitude MT",
+          "1.2 turbo, 100 CV, 205 Nm, manual de 6"
+        ],
+        [
+          "Motor MHEV (híbrido ligero)",
+          "1.2 turbo + eléctrico 48V, 110 HP combinados, 205 Nm, doble embrague e-DCT6"
+        ],
+        [
+          "Motor eléctrico (BEV)",
+          "154 HP, 260 Nm, batería de 54 kWh, 400 km de autonomía (WLTP)"
+        ],
+        [
+          "Modos de manejo",
+          "Selec-Terrain: Eco, Normal, Sport, Arena, Barro y Nieve (híbrido)"
+        ],
+        [
+          "Largo / entre ejes",
+          "4.084 mm / 2.557 mm"
+        ],
+        [
+          "Baúl",
+          "355 L (1.252 L con la segunda fila abatida)"
+        ],
+        [
+          "Seguridad",
+          "6 airbags, ESC, control de descenso, cámara 180° con drone view, sensores adelante y atrás"
+        ],
+        [
+          "Asistencias (ADAS)",
+          "Frenado autónomo de emergencia, crucero adaptativo, mantenimiento de carril, lectura de señales"
+        ],
+        [
+          "Tecnología",
+          "Pantalla Uconnect 5 de 10\", tablero de 10,25\", Apple CarPlay y Android Auto inalámbricos"
+        ]
+      ],
+      "colores": [],
+      "_colores": "Colores según ficha: Gris Evoluzione, Gris Concreto, Rojo Ruby, Blanco, Gris Stone, Amarillo Sahara, Negro Volcano (varía por versión). Faltan las fotos por color.",
+      "fotos": {
+        "hero": {
+          "src": "avenger-hero.jpg",
+          "alt": "Jeep Avenger gris en terreno rocoso",
+          "foco": "center 60%"
+        },
+        "galeria": [
+          {
+            "src": "avenger-carretera.jpg",
+            "alt": "Jeep Avenger en carretera de montaña"
+          },
+          {
+            "src": "avenger-tablero.jpg",
+            "alt": "Tablero digital del Jeep Avenger"
+          },
+          {
+            "src": "avenger-electrico.jpg",
+            "alt": "Jeep Avenger eléctrico amarillo en el bosque",
+            "foco": "center 60%"
+          }
+        ]
+      },
+      "fichas": [
+        [
+          "Ficha Altitude MT",
+          "ficha-jeep-avenger-altitude-mt.pdf"
+        ],
+        [
+          "Ficha híbrido MHEV",
+          "ficha-jeep-avenger-hibrido.pdf"
+        ],
+        [
+          "Ficha eléctrico",
+          "ficha-jeep-avenger-electrico.pdf"
+        ]
+      ]
+    },
+    "COMPASS": {
+      "titular": "Jeep Compass",
+      "gancho": "La SUV mediana de Jeep: motor 1.3 turbo de 173 HP con caja automática de 6 y bloqueo electrónico de diferencial.",
+      "paraQuien": "Para la familia que quiere espacio, buena altura y un motor que no se queda en las subidas de Las Palmas. La Longitude ya trae todo lo importante; la Limited Plus suma crucero adaptativo, frenado autónomo, sonido Beats y techo panorámico.",
+      "destacados": [
+        "173 HP turbo",
+        "Automática de 6",
+        "6 airbags de serie"
+      ],
+      "specs": [
+        [
+          "Carrocería",
+          "SUV mediana, 5 pasajeros"
+        ],
+        [
+          "Motor",
+          "1.3 turbo T270, 1.332 cc, 173 HP a 5.750 rpm, gasolina"
+        ],
+        [
+          "Torque",
+          "270 Nm a 1.850 rpm"
+        ],
+        [
+          "Caja",
+          "Automática Aisin de 6, con levas y modo Sport"
+        ],
+        [
+          "Tracción",
+          "Delantera, con bloqueo electrónico de diferencial (BLD)"
+        ],
+        [
+          "Despeje al piso",
+          "187 mm"
+        ],
+        [
+          "Ángulos",
+          "21,5° de ataque / 30,7° de salida"
+        ],
+        [
+          "Largo / entre ejes",
+          "4.404 mm / 2.636 mm"
+        ],
+        [
+          "Rines",
+          "18\" (Longitude) · 19\" (Limited)"
+        ],
+        [
+          "Seguridad",
+          "6 airbags (7 en Limited), control de estabilidad, arranque en pendiente, Auto Hold, monitoreo de presión de llantas"
+        ],
+        [
+          "Tecnología",
+          "Uconnect 5 de 8,4\" (Longitude) o 10,1\" (Limited), Apple CarPlay y Android Auto"
+        ]
+      ],
+      "_specs": "De la ficha del Compass Longitude/Limited/Limited Plus. El Blackhawk 2.0T no está en esa ficha: falta.",
+      "colores": [],
+      "_colores": "Blanco Polar, Gris Metal, Azul Jazz, Gris Granito, Negro Carbón (techo negro en Limited). Faltan fotos.",
+      "fotos": {
+        "hero": {
+          "src": "compass-hero.jpg",
+          "alt": "Jeep Compass azul en carretera",
+          "foco": "center 60%"
+        },
+        "galeria": [
+          {
+            "src": "compass-estudio.jpg",
+            "alt": "Jeep Compass azul con techo panorámico",
+            "fondo": "blanco"
+          },
+          {
+            "src": "compass-interior.jpg",
+            "alt": "Interior del Jeep Compass con pantalla Uconnect 5"
+          }
+        ]
+      },
+      "fichas": [
+        [
+          "Catálogo Compass",
+          "catalogo-jeep-compass.pdf"
+        ]
+      ]
+    },
+    "COMMANDER": {
+      "titular": "Jeep Commander",
+      "gancho": "El Jeep de 7 puestos: para la familia grande que no quiere renunciar a la marca.",
+      "paraQuien": "Para quien necesita la tercera fila de verdad, sin pasarse a una camioneta enorme. Escríbeme y te mando la ficha técnica completa de la versión Overland.",
+      "destacados": [
+        "7 puestos",
+        "1.3 turbo",
+        "Versión Overland"
+      ],
+      "specs": [],
+      "_specs": "Falta la ficha técnica del Commander Overland.",
+      "fotos": {
+        "hero": null,
+        "galeria": []
+      }
+    },
+    "WRANGLER": {
+      "titular": "Jeep Wrangler",
+      "gancho": "El 4x4 original: motor 2.0 turbo de 270 HP, caja automática de 8, techo y puertas desmontables.",
+      "paraQuien": "Para quien sale a la trocha de verdad o simplemente quiere el carro más icónico de la marca. El Sport ya es un 4x4 serio con Selec-Trac; el Rubicon suma reducción 4:1 Rock-Trac, bloqueo de diferenciales, barra desconectable y llantas de barro. En 2 puertas es más ágil; el Unlimited de 4 puertas es el que sirve para la familia.",
+      "destacados": [
+        "270 HP",
+        "4x4 Trail Rated",
+        "Techo y puertas desmontables"
+      ],
+      "specs": [
+        [
+          "Motor",
+          "2.0 turbo de 4 cilindros, inyección directa, 1.995 cc"
+        ],
+        [
+          "Potencia / torque",
+          "270 HP a 5.250 rpm / 400 Nm a 3.000 rpm"
+        ],
+        [
+          "Caja",
+          "Automática 850RE de 8 velocidades"
+        ],
+        [
+          "Transferencia",
+          "Selec-Trac 2,72:1 (Sport) · Rock-Trac 4,0:1 (Rubicon)"
+        ],
+        [
+          "Ejes",
+          "Rígidos Dana; Rubicon con bloqueo Tru-Lok y trasero Dana 44 HD"
+        ],
+        [
+          "Despeje al piso",
+          "246 mm (Sport) · 274 mm (Rubicon)"
+        ],
+        [
+          "Ángulos (Unlimited)",
+          "Entrada 41,4° / 43,9° · Salida 36,1° / 37° (Sport / Rubicon)"
+        ],
+        [
+          "Largo",
+          "4.785 mm (Unlimited 4 puertas) · 4.237 mm (Rubicon 2 puertas)"
+        ],
+        [
+          "Arrastre",
+          "Hasta 2.268 kg (Unlimited Rubicon)"
+        ],
+        [
+          "Llantas",
+          "245/75 R17 All-Terrain (Sport) · 255/75 R17 Mud-Terrain (Rubicon)"
+        ],
+        [
+          "Seguridad y ADAS",
+          "Airbags frontales, laterales y de cortina; alerta de colisión, punto ciego, crucero adaptativo con Stop&Go"
+        ],
+        [
+          "Tecnología",
+          "Uconnect 5 de 12,3\", Apple CarPlay y Android Auto, sonido Alpine"
+        ]
+      ],
+      "_colores": "Las dos fichas del Wrangler tienen la página de colores de otro carro (dice Fiat Fastback). No se publican colores hasta confirmarlos.",
+      "fotos": {
+        "hero": {
+          "src": "wrangler-hero.jpg",
+          "alt": "Jeep Wrangler Unlimited rojo",
+          "fondo": "blanco",
+          "ajuste": "completa",
+          "proporcion": "16/11"
+        },
+        "galeria": [
+          {
+            "src": "wrangler-rubicon-2p.jpg",
+            "alt": "Jeep Wrangler Rubicon 2 puertas rojo",
+            "fondo": "blanco",
+            "ajuste": "completa"
+          },
+          {
+            "src": "wrangler-tablero.jpg",
+            "alt": "Tablero del Jeep Wrangler con pantalla de 12,3 pulgadas"
+          },
+          {
+            "src": "wrangler-interior.jpg",
+            "alt": "Interior en cuero del Jeep Wrangler"
+          }
+        ]
+      },
+      "fichas": [
+        [
+          "Ficha Unlimited Sport y Rubicon",
+          "ficha-jeep-wrangler-unlimited.pdf"
+        ],
+        [
+          "Ficha Rubicon 2 puertas",
+          "ficha-jeep-wrangler-rubicon-2-puertas.pdf"
+        ]
+      ]
+    },
+    "GLADIATOR": {
+      "titular": "Jeep Gladiator",
+      "gancho": "La única pick-up con alma de Wrangler: Rubicon 4x4, lista para la trocha y para cargar.",
+      "paraQuien": "Para quien necesita platón y no quiere renunciar a la capacidad 4x4 de un Wrangler Rubicon. Escríbeme y te mando la ficha técnica completa.",
+      "destacados": [
+        "Pick-up 4x4",
+        "Rubicon",
+        "Platón"
+      ],
+      "specs": [],
+      "_specs": "Falta la ficha técnica del Gladiator Rubicon.",
+      "fotos": {
+        "hero": null,
+        "galeria": []
+      }
+    },
+    "RAM-700": {
+      "articulo": "la",
+      "titular": "RAM 700",
+      "gancho": "La pick-up compacta para trabajar y para la familia: cabina sencilla o doble, manual o CVT.",
+      "paraQuien": "Para el negocio que necesita cargar hasta 650 kg sin pagar una camioneta grande, o para quien quiere una doble cabina económica que también sirva el fin de semana. La Big Horn CVT es la cómoda para la ciudad; la cabina sencilla SLT es la de trabajo.",
+      "destacados": [
+        "Hasta 650 kg de carga",
+        "Doble cabina",
+        "Manual o CVT"
+      ],
+      "specs": [
+        [
+          "Versiones",
+          "Cabina sencilla SLT MT · Doble cabina Big Horn MT · Doble cabina Big Horn CVT"
+        ],
+        [
+          "Motor (Big Horn)",
+          "1.3 Firefly, 1.332 cc, 4 cilindros, 98 HP a 6.000 rpm, 128 Nm"
+        ],
+        [
+          "Caja (Big Horn)",
+          "Manual de 5 o CVT de 7 velocidades"
+        ],
+        [
+          "Tracción",
+          "Delantera"
+        ],
+        [
+          "Capacidad de carga",
+          "650 kg (doble cabina)"
+        ],
+        [
+          "Platón (doble cabina)",
+          "1.015 mm de largo × 1.310 mm de ancho"
+        ],
+        [
+          "Largo total",
+          "4.474 mm"
+        ],
+        [
+          "Tanque",
+          "55 L"
+        ],
+        [
+          "Tecnología",
+          "Pantalla táctil de 7\" con Apple CarPlay y Android Auto"
+        ]
+      ],
+      "_specs": "La ficha de la SLT que llegó es la 2024 con motor 1.4 Fire; la lista vigente dice 1.3. Falta la ficha actual de la SLT.",
+      "fotos": {
+        "hero": {
+          "src": "ram700-hero.jpg",
+          "alt": "RAM 700 doble cabina gris en camino destapado",
+          "foco": "center 65%"
+        },
+        "galeria": [
+          {
+            "src": "ram700-roja.jpg",
+            "alt": "RAM 700 Big Horn roja",
+            "fondo": "blanco",
+            "ajuste": "completa"
+          },
+          {
+            "src": "ram700-interior.jpg",
+            "alt": "Interior de la RAM 700"
+          },
+          {
+            "src": "ram700-silla.jpg",
+            "alt": "Silla trasera de la RAM 700 doble cabina"
+          }
+        ]
+      },
+      "fichas": [
+        [
+          "Ficha Big Horn MT",
+          "ficha-ram-700-big-horn-mt.pdf"
+        ],
+        [
+          "Ficha Big Horn CVT",
+          "ficha-ram-700-big-horn-cvt.pdf"
+        ]
+      ]
+    },
+    "RAM-1500": {
+      "articulo": "la",
+      "titular": "RAM 1500",
+      "gancho": "La pick-up grande: V6 3.6 eTorque de 305 HP, caja automática de 8 y 4x4, en Big Horn y Night Edition.",
+      "paraQuien": "Para quien remolca, carga pesado o simplemente quiere la pick-up más imponente de la vitrina. Arrastra hasta 2.900 kg con frenos y trae todas las asistencias: frenado de emergencia, punto ciego y crucero adaptativo. La Night Edition la pone toda en negro y suma toma de 115V en el platón.",
+      "destacados": [
+        "305 HP V6 eTorque",
+        "4x4",
+        "Arrastre 2.900 kg"
+      ],
+      "specs": [
+        [
+          "Motor",
+          "3.6 Pentastar V6 con eTorque (híbrido ligero 48V)"
+        ],
+        [
+          "Potencia / torque",
+          "305 HP a 6.400 rpm / 486 Nm a 4.800 rpm"
+        ],
+        [
+          "Caja",
+          "Automática de 8 velocidades"
+        ],
+        [
+          "Tracción",
+          "4x4 Shift on Demand, con baja 2,64:1"
+        ],
+        [
+          "Cabina",
+          "Doble cabina, 5 pasajeros"
+        ],
+        [
+          "Capacidad de carga",
+          "818 kg"
+        ],
+        [
+          "Arrastre",
+          "2.900 kg con frenos"
+        ],
+        [
+          "Platón",
+          "1.711 mm de largo × 1.687 mm de ancho"
+        ],
+        [
+          "Largo / entre ejes",
+          "5.916 mm / 3.672 mm"
+        ],
+        [
+          "Despeje al piso",
+          "209 mm"
+        ],
+        [
+          "Rines",
+          "20\" (cromados en Big Horn, negros en Night Edition), 275/55 R20"
+        ],
+        [
+          "ADAS",
+          "Punto ciego, frenado de emergencia con peatones, alerta de colisión, mantenimiento de carril, crucero adaptativo Stop&Go"
+        ],
+        [
+          "Tecnología",
+          "Uconnect 5 de 12\", Apple CarPlay y Android Auto inalámbricos"
+        ]
+      ],
+      "_colores": "Blanco Brillante, Gris Granito, Negro Diamante, Plateado Zynith. Faltan fotos por color.",
+      "fotos": {
+        "hero": {
+          "src": "ram1500-hero.jpg",
+          "alt": "RAM 1500 Night Edition negra en la ciudad de noche",
+          "foco": "center 55%"
+        },
+        "galeria": []
+      },
+      "fichas": [
+        [
+          "Ficha RAM 1500",
+          "ficha-ram-1500.pdf"
+        ]
+      ]
+    }
+  },
+  "notaPrecio": "Precio sugerido de lista, con impuestos incluidos",
+  "notaVersiones": "Precios de la lista vigente con impuestos incluidos; el CRM los actualiza en vivo. Escríbeme y te confirmo el del día y si hay bono."
+}

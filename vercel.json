@@ -1,0 +1,6 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "node plantilla/construir.js jeep sitio",
+  "outputDirectory": "sitio",
+  "redirects": [{ "source": "/index.html", "destination": "/", "permanent": true }]
+}

@@ -1,0 +1,112 @@
+{
+  "_": "Ficha de Juan Jeep Vehículos. Vende Jeep y RAM (no Fiat). Lo que falta está en _pendiente.",
+  "_pendiente": [
+    "whatsapp: el número de Juan para Jeep (573XXXXXXXXX)",
+    "businessId: crear el negocio Jeep en el CRM y pegar su id",
+    "dominio: confirmar juanjeepvehiculos.com y comprarlo",
+    "medicion: GA4, Google Ads, pixel de Meta"
+  ],
+  "sigla": "JJV",
+  "prefijoCookie": "jjv",
+  "marca": "Jeep",
+  "dominio": "juanjeepvehiculos.com",
+  "nombrePublico": "Juan Jeep Vehículos",
+  "asesor": "Juan Camilo",
+  "asesorFoto": {
+    "src": "juan-avatar.jpg",
+    "alt": "Juan Camilo, asesor Jeep y RAM en Medellín"
+  },
+  "whatsapp": "",
+  "businessId": "",
+  "crm": "https://crm-plataforma-three.vercel.app",
+  "tipografia": "elegante",
+  "medicion": {
+    "ga4": "",
+    "googleAds": "",
+    "conversionLabel": "",
+    "metaPixel": "",
+    "clarity": ""
+  },
+  "horario": {
+    "desde": 8,
+    "hasta": 24
+  },
+  "credito": {
+    "tasaMensual": 0.018,
+    "plazoMaximoMeses": 84,
+    "inicialMaximaPct": 50
+  },
+  "colores": {
+    "tinta": "#1F231B",
+    "acento": "#C8A86B",
+    "marca": "#4B5A34",
+    "apoyo": "#161A13",
+    "whatsapp": "#1FBE57"
+  },
+  "modelos": [
+    {
+      "linea": "AVENGER",
+      "nombre": "Avenger",
+      "pagina": "/jeep-avenger-medellin.html",
+      "traccion": "",
+      "propulsion": "",
+      "paginasExtra": []
+    },
+    {
+      "linea": "COMPASS",
+      "nombre": "Compass",
+      "pagina": "/jeep-compass-medellin.html",
+      "traccion": "",
+      "propulsion": "",
+      "paginasExtra": []
+    },
+    {
+      "linea": "COMMANDER",
+      "nombre": "Commander",
+      "pagina": "/jeep-commander-medellin.html",
+      "traccion": "",
+      "propulsion": "",
+      "paginasExtra": []
+    },
+    {
+      "linea": "WRANGLER",
+      "nombre": "Wrangler",
+      "pagina": "/jeep-wrangler-medellin.html",
+      "traccion": "4x4",
+      "propulsion": "",
+      "paginasExtra": []
+    },
+    {
+      "linea": "GLADIATOR",
+      "nombre": "Gladiator",
+      "pagina": "/jeep-gladiator-medellin.html",
+      "traccion": "4x4",
+      "propulsion": "",
+      "paginasExtra": []
+    },
+    {
+      "linea": "RAM-700",
+      "marca": "RAM",
+      "nombre": "700",
+      "pagina": "/ram-700-medellin.html",
+      "traccion": "",
+      "propulsion": "",
+      "paginasExtra": []
+    },
+    {
+      "linea": "RAM-1500",
+      "marca": "RAM",
+      "nombre": "1500",
+      "pagina": "/ram-1500-medellin.html",
+      "traccion": "4x4",
+      "propulsion": "hibrido",
+      "paginasExtra": []
+    }
+  ],
+  "paginasPortada": [],
+  "paginaTecnologia": "",
+  "pesos": {},
+  "paginaCredito": "/jeep-credito-medellin.html",
+  "paginaLegal": "/jeep-notas-legales-medellin.html",
+  "menuMax": 7
+}
