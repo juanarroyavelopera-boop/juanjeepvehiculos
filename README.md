@@ -19,6 +19,7 @@ plantilla/                 el generador (Node, sin dependencias)
 sitio/                     EL SITIO GENERADO — no se edita a mano
 docs/APRENDIZAJES.md       lo que aprendimos de cada página y a quién se le devolvió
 docs/PENDIENTES.md         lo que falta para publicar
+docs/PROMPT-NUEVA-MARCA.md el prompt para hacer la página de otra marca
 ```
 
 ## Trabajar
