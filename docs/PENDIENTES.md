@@ -2,6 +2,14 @@
 
 `node plantilla/construir.js jeep --comprobar` dice lo que falta en la ficha.
 
+## Del asesor cliente (la página es para otro asesor, no para Juan)
+- [ ] Nombre corto y completo → `plantilla/marcas/jeep.json` → `asesor`, `asesorNombreCompleto`
+- [ ] Foto (retrato y una cuadrada para el avatar) → `asesorFoto` y `contenido.asesor.foto`
+- [ ] Su número de WhatsApp → `whatsapp`
+- [ ] ¿El nombre del sitio sigue siendo "Juan Jeep Vehículos"? Dice "Juan" y el asesor puede ser otro.
+- [ ] Dirección de la sala (para la sección de ubicación, como en Suzuki)
+- [ ] Página "Quién soy" del asesor: necesita su historia (años vendiendo, entregas)
+
 ## De Juan
 - [ ] **Número de WhatsApp** para Jeep → `plantilla/marcas/jeep.json` → `whatsapp` (573XXXXXXXXX). Sin él, los botones no llevan a ningún lado.
 - [ ] **Negocio Jeep en el CRM** → su id en `businessId`. Sin él, el sitio no mide ni trae precios en vivo.

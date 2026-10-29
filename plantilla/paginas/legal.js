@@ -67,7 +67,7 @@ ${encabezado(marca, marca.modelos)}
     <div style="margin-top:26px;text-align:center">
       ${boton(marca, {
         texto: "Preguntarme algo de esto",
-        mensaje: `Hola ${marca.asesor}, tengo una duda sobre las condiciones de la página.`,
+        mensaje: `${marca.hola} tengo una duda sobre las condiciones de la página.`,
         ctx: "legal_consulta",
       })}
     </div>
@@ -77,7 +77,7 @@ ${encabezado(marca, marca.modelos)}
 ${pie(marca, {
   tituloFinal: "¿Alguna duda con esto?",
   textoFinal: "Prefiero que preguntes ahora y no después de firmar. Escríbeme y te lo explico.",
-  mensajeFinal: `Hola ${marca.asesor}, quiero preguntarte algo antes de decidirme.`,
+  mensajeFinal: `${marca.hola} quiero preguntarte algo antes de decidirme.`,
   ctxFinal: "legal_final",
 })}`;
 };

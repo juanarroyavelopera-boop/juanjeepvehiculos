@@ -38,6 +38,9 @@ const paginaModelo = require("./paginas/modelo");
 const paginaCredito = require("./paginas/credito");
 const paginaTecnologia = require("./paginas/tecnologia");
 const paginaLegal = require("./paginas/legal");
+const paginaPrecios = require("./paginas/precios");
+const paginaComparativa = require("./paginas/comparativa");
+const { irHtml, llmsTxt } = require("./paginas/extras");
 
 const AQUI = __dirname;
 
@@ -192,6 +195,18 @@ function escribir(salida, ruta, texto, hechos) {
 /** Las páginas: portada, una por modelo, crédito y tecnología. */
 function escribirPaginas(marca, contenido, precios, salida, hechos) {
   const datos = armarPrecios(precios);
+  // El asesor puede no estar definido todavía (un sitio que se arma antes de
+  // saber quién lo va a atender). Los textos no quedan con un hueco: dicen
+  // "tu asesor" y los mensajes arrancan con "Hola,".
+  marca.asesorTexto = marca.asesor || "tu asesor";
+  marca.hola = marca.asesor ? `Hola ${marca.asesor},` : "Hola,";
+  // Las guías (precios y comparativas) salen en la portada, en el pie y en
+  // llms.txt. Se arman una vez acá para que las tres digan lo mismo.
+  const comps = contenido.comparativas || [];
+  marca.guias = [
+    ...(marca.paginaPrecios ? [["Lista de precios", marca.paginaPrecios, "Todas las versiones con impuestos incluidos."]] : []),
+    ...comps.map((c) => [c.corto, c.ruta, c.resumen]),
+  ];
   // El pie de todas las páginas muestra los avisos cortos.
   marca.legal = contenido.legal || null;
 
@@ -217,13 +232,19 @@ function escribirPaginas(marca, contenido, precios, salida, hechos) {
   const tec = paginaTecnologia(marca, contenido, datos);
   if (tec) escribir(salida, marca.paginaTecnologia.replace(/^\//, ""), tec, hechos);
 
+  const pre = paginaPrecios(marca, contenido, datos, precios);
+  if (pre) escribir(salida, marca.paginaPrecios.replace(/^\//, ""), pre, hechos);
+  for (const c of comps) escribir(salida, c.ruta.replace(/^\//, ""), paginaComparativa(marca, contenido, c), hechos);
+  escribir(salida, "ir.html", irHtml(marca), hechos);
+  escribir(salida, "llms.txt", llmsTxt(marca, contenido, datos, marca.guias), hechos);
+
   const leg = paginaLegal(marca, contenido);
   if (leg) escribir(salida, marca.paginaLegal.replace(/^\//, ""), leg, hechos);
 }
 
 /** Lo que necesitan Google y Vercel. */
 function escribirSeo(marca, salida, hechos) {
-  const rutas = ["/", ...(marca.modelos || []).map((m) => m.pagina), marca.paginaCredito];
+  const rutas = ["/", ...(marca.modelos || []).map((m) => m.pagina), marca.paginaCredito, ...(marca.guias || []).map((g) => g[1])];
   if (marca.paginaTecnologia) rutas.push(marca.paginaTecnologia);
   // La página legal queda fuera del sitemap a propósito: va con noindex.
   const hoy = new Date().toISOString().slice(0, 10);
@@ -238,12 +259,27 @@ function escribirSeo(marca, salida, hechos) {
       `\n</urlset>\n`,
     hechos,
   );
+  // Buscadores y asistentes de IA, bienvenidos (aprendido en Suzuki, oct-2026):
+  // la gente ya pregunta "qué Jeep comprar" a ChatGPT y a Gemini.
+  const bots = [
+    ["OpenAI (ChatGPT)", ["GPTBot", "OAI-SearchBot", "ChatGPT-User"]],
+    ["Anthropic (Claude)", ["ClaudeBot", "Claude-SearchBot", "Claude-User"]],
+    ["Perplexity", ["PerplexityBot", "Perplexity-User"]],
+    ["Google (Gemini y AI Overviews)", ["Google-Extended"]],
+    ["Bing / Copilot", ["Bingbot"]],
+    ["Apple, Meta, Common Crawl", ["Applebot-Extended", "meta-externalagent", "CCBot"]],
+  ];
   escribir(
     salida,
     "robots.txt",
-    `User-agent: *\nAllow: /\n\nSitemap: https://${marca.dominio}/sitemap.xml\n`,
+    `# Buscadores y asistentes de IA: bienvenidos.\nUser-agent: *\nAllow: /\nDisallow: /ir.html\n\n` +
+      bots.map(([q, uas]) => `# ${q}\n` + uas.map((u) => `User-agent: ${u}\nAllow: /`).join("\n")).join("\n\n") +
+      `\n\nSitemap: https://${marca.dominio}/sitemap.xml\n`,
     hechos,
   );
+  // IndexNow: avisa a Bing (y a los que lo usan) cuando cambia una página.
+  // La clave es un archivo con su propio nombre en la raíz.
+  if (marca.indexNowKey) escribir(salida, `${marca.indexNowKey}.txt`, marca.indexNowKey, hechos);
   // /index.html redirige a / para no tener la portada en dos direcciones, que
   // es lo que Google castiga como contenido duplicado.
   escribir(

@@ -16,7 +16,7 @@ window.MARCA = {
   "marca": "Jeep",
   "dominio": "juanjeepvehiculos.com",
   "nombrePublico": "Juan Jeep Vehículos",
-  "asesor": "Juan Camilo",
+  "asesor": "",
   "whatsapp": "",
   "businessId": "",
   "crm": "https://crm-plataforma-three.vercel.app",

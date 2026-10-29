@@ -35,20 +35,78 @@
 
   fbq('init', PIXEL_ID);
 
-  function track(metodo, eventName, customData) {
+  function track(metodo, eventName, customData, eventId) {
     try {
-      var id = (window.MEDICION || {}).lastEventId;
+      var id = eventId || (window.MEDICION || {}).lastEventId;
       fbq(metodo, eventName, customData || {}, id ? { eventID: id } : undefined);
     } catch (_) {}
   }
   // 'track' = eventos estándar de Meta (PageView, Lead…) — son los que las
   // campañas pueden usar para optimizar. 'trackCustom' = eventos inventados
   // por nosotros, solo sirven para mirar y para armar públicos.
-  var estandar = function (n, d) { track('track', n, d); };
-  var propio = function (n, d) { track('trackCustom', n, d); };
+  var estandar = function (n, d, id) { track('track', n, d, id); };
+  var propio = function (n, d, id) { track('trackCustom', n, d, id); };
+
+  /* QUÉ ES UN LEAD (y por qué no es "tocar el botón") — aprendido en Suzuki.
+     Lead = WhatsApp de verdad se abre (o se toca "Llamar" en el celular):
+       - móvil: el toque abre la app ⇒ Lead.
+       - computador: el toque solo abre el modal QR ⇒ NO es Lead (va como
+         WhatsAppClick). Es Lead si toca "Prefiero WhatsApp Web" o si escanea
+         el QR (eso lo cuenta el CRM por CAPI desde ir.html).
+     El id del Lead lo pone track.js en MEDICION.leadEventId: es el MISMO evento
+     que el CRM manda por CAPI como Lead, así Meta cuenta uno solo. */
+  var esMovil = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+    !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  function lead(d, esBotonWa) {
+    var T = window.MEDICION || {};
+    var id = T.leadEventId;
+    if (!T.send) {
+      // track.js no mide (bloqueado o apagado): el pixel decide solo, sin id.
+      if (esBotonWa && !esMovil && window.ASM_QR_ACTIVO) return false;
+      id = null;
+    } else if (!id) return false;
+    estandar('Lead', d, id || undefined);
+    return true;
+  }
 
   // PageView: track.js ya mandó su page_view al cargar ⇒ lastEventId es el suyo.
   estandar('PageView');
+
+  /* ViewContent en las fichas de modelo: le dice a Meta qué carro miró cada
+     persona (públicos por modelo y anuncios de catálogo). Los content_ids son
+     los ids del catálogo, que salen del CRM (catalog_items.id): si llegó desde
+     un anuncio de catálogo trae ?vehiculo=<id>; si no, todas las versiones de
+     la línea, pedidas al mismo portafolio en vivo que usa catalogo-vivo.js. */
+  var LINEAS = {};
+  (M.modelos || []).forEach(function (m) {
+    if (m.pagina && m.linea) LINEAS[m.pagina.split('/').pop().replace(/\.html$/, '')] = m.linea;
+  });
+  var slugPag = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
+  var lineaPag = LINEAS[slugPag];
+  if (lineaPag) {
+    var h1 = document.querySelector('h1');
+    var nombreVC = h1 ? h1.textContent.replace(/\s+/g, ' ').trim() : lineaPag;
+    var pvVC = (window.MEDICION || {}).lastEventId;
+    var verVC = function (ids) {
+      estandar('ViewContent', {
+        content_type: 'product', content_name: nombreVC, content_category: 'carro', content_ids: ids
+      }, pvVC ? 'vc-' + pvVC : undefined);
+    };
+    var vehiculo = null;
+    try { vehiculo = new URLSearchParams(location.search).get('vehiculo'); } catch (_) {}
+    if (vehiculo && /^[0-9a-f-]{36}$/i.test(vehiculo)) {
+      verVC([vehiculo]);
+    } else if (window.fetch && M.crm && M.businessId) {
+      fetch(M.crm.replace(/\/+$/, '') + '/api/catalog/portfolio?business_id=' + encodeURIComponent(M.businessId) + '&sin_ficha=1')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          var m = (data.modelos || []).filter(function (x) { return x.linea === lineaPag; })[0];
+          var ids = ((m && m.versiones) || []).map(function (v) { return v.id; }).filter(Boolean);
+          if (ids.length) verVC(ids);
+        })
+        .catch(function () {});
+    }
+  }
 
   function datos(ctx, tipo) {
     var d = { content_name: ctx || 'general', content_category: tipo, currency: 'COP' };
@@ -61,17 +119,22 @@
     var t = e.target;
     if (!t || !t.closest) return;
 
-    var wa = t.closest('.wpp-cta, [data-wa]'); // mismo criterio que track.js
-    if (wa) { estandar('Lead', datos(wa.getAttribute('data-ctx'), 'whatsapp')); return; }
+    // "Prefiero abrir WhatsApp Web" del modal QR: apertura real en computador.
+    if (t.closest('#waqr-alt')) { lead(datos('waqr_web_fallback', 'whatsapp')); return; }
+
+    // Mismo criterio que track.js: botones .wpp-cta y cualquier otro enlace a WhatsApp.
+    var T0 = window.MEDICION || {};
+    var wa = t.closest('.wpp-cta') || t.closest(T0.WA_EXTRA || '[data-wa], .wa-extra, a[href*="wa.me/"], a[href*="api.whatsapp.com"]');
+    if (wa) {
+      var ctx0 = wa.getAttribute('data-ctx') || (T0.ctxExtra ? T0.ctxExtra(wa) : 'enlace_whatsapp');
+      var d = datos(ctx0, 'whatsapp');
+      // Sin apertura (modal QR en computador): evento propio con el id del clic.
+      if (!lead(d, true)) propio('WhatsAppClick', d);
+      return;
+    }
 
     var call = t.closest('.call-cta');
-    if (call) { estandar('Lead', datos(call.getAttribute('data-ctx'), 'llamada')); return; }
-
-    // "Prefiero abrir WhatsApp Web" del modal QR: apertura real en computador.
-    // Va como evento propio para no inflar Lead — el clic al botón ya contó arriba.
-    var alt = t.closest('#waqr-alt');
-    // mismo nombre que usa el servidor para whatsapp_open_attempt ⇒ deduplica
-    if (alt) propio('WhatsAppOpen', { content_name: 'waqr_web_fallback' });
+    if (call && esMovil) lead(datos(call.getAttribute('data-ctx'), 'llamada'));
   }, true);
 
   document.addEventListener('submit', function (e) {

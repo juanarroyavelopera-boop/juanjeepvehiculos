@@ -47,6 +47,17 @@ const rel = (ruta) => String(ruta || "").replace(/^\//, "") || "index.html";
 const marcaDe = (marca, modelo) => (modelo && modelo.marca) || marca.marca;
 const nombreCompleto = (marca, modelo) => `${marcaDe(marca, modelo)} ${modelo.nombre}`;
 
+/**
+ * Recorta un texto al largo que Google muestra (título 60, descripción 160)
+ * sin partir palabras. Lo que se pase, Google lo corta igual y peor.
+ */
+function recortar(texto, max) {
+  const t = String(texto || "").replace(/\s+/g, " ").trim();
+  if (t.length <= max) return t;
+  const corte = t.slice(0, max - 1);
+  return corte.slice(0, corte.lastIndexOf(" ")).replace(/[,;:.·|\-–]+$/, "") + "…";
+}
+
 /** El enlace de WhatsApp con el mensaje ya escrito. La firma la pone wa-firma.js. */
 function wa(marca, texto) {
   return `https://wa.me/${marca.whatsapp}?text=${encodeURIComponent(texto)}`;
@@ -80,7 +91,7 @@ function avatar(marca, { claro = false } = {}) {
   const f = marca.asesorFoto;
   const clase = "avatar" + (claro ? " claro" : "");
   if (f && f.src) {
-    return `<span class="${clase}"><img src="fotos/${esc(f.src)}" alt="${esc(f.alt || marca.asesor)}" loading="lazy" decoding="async"></span>`;
+    return `<span class="${clase}"><img src="fotos/${esc(f.src)}" alt="${esc(f.alt || marca.asesorTexto)}" loading="lazy" decoding="async"></span>`;
   }
   return `<span class="${clase}" aria-hidden="true">${SILUETA}</span>`;
 }
@@ -529,12 +540,43 @@ header{position:sticky;top:0;z-index:50;background:var(--vidrio);
 .tabla td:first-child{color:var(--suave);width:44%}
 .tabla td:last-child{font-weight:600;font-variant-numeric:tabular-nums}
 .envuelve-tabla{overflow-x:auto}
+.ver-mas-specs{display:none;text-align:center;margin:14px 0 0}
+@media (max-width:760px){
+  .plegable:not(.abierta) tr:nth-child(n+7){display:none}
+  .ver-mas-specs{display:block}
+}
 .versiones{display:grid;gap:12px}
 .ver-row{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;
   border:1px solid var(--raya);border-radius:12px;padding:14px 16px}
 .ver-row .nom{font-weight:700}
 .ver-row .det{font-size:13px;color:var(--suave)}
 .ver-row .pr{font-family:var(--titulos);font-size:26px;white-space:nowrap}
+a.ver-row{text-decoration:none;color:inherit;transition:border-color .15s ease,box-shadow .15s ease}
+a.ver-row:hover{border-color:var(--marca);box-shadow:0 6px 18px rgba(20,24,18,.08)}
+.ver-row .pr{text-align:right}
+.ver-wa{display:block;font-family:Inter,system-ui,sans-serif;font-size:12.5px;font-weight:700;color:var(--wa);letter-spacing:.01em}
+
+/* ── página de precios y comparativas ── */
+.tabla-precios{width:100%;border-collapse:collapse}
+.tabla-precios .modelo-fila th{text-align:left;padding:22px 4px 8px;font-family:var(--titulos);font-size:22px;font-weight:600}
+.tabla-precios .modelo-fila a{text-decoration:none}
+.tabla-precios .modelo-fila a:hover{text-decoration:underline}
+.vrow{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px 14px;margin:0 0 8px;
+  border:1px solid var(--raya);border-radius:10px;text-decoration:none;color:inherit;background:var(--tarjeta)}
+.vrow:hover{border-color:var(--marca)}
+.vrow b{display:block;font-size:15px}
+.vrow small{display:block;font-size:12.5px;color:var(--suave)}
+.vrow .vp{text-align:right;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.vrow em{display:block;font-style:normal;font-size:12.5px;color:var(--wa)}
+.nota-precios{font-size:13px;color:var(--suave);margin-top:16px}
+.tabla.comparar th{text-align:left;padding:10px 6px;border-bottom:2px solid var(--marca);font-size:14px}
+.tabla.comparar td:first-child{width:auto;min-width:130px}
+.tabla.comparar td{font-weight:500}
+.guias{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:18px}
+.guia{display:block;padding:16px;border:1px solid var(--raya);border-radius:10px;background:var(--tarjeta);text-decoration:none;color:inherit}
+.guia:hover{border-color:var(--marca)}
+.guia b{display:block;font-size:15.5px;margin-bottom:4px}
+.guia span{font-size:13.5px;color:var(--suave)}
 
 /* ── franja, faq, boletín, pie ── */
 .franja{background:var(--fondo)}
@@ -576,11 +618,18 @@ footer{padding-block:34px;border-top:3px solid var(--divisor);background:var(--p
 
 /* ── botón flotante en celular ── */
 .flotante{display:none}
+/* Burbuja compacta (aprendido en Suzuki, oct-2026): la barra a lo ancho
+   tapaba botones de la página en celular. Un círculo en la esquina sigue
+   siendo el botón más tocado y no tapa nada. */
 @media (max-width:1040px){
-  .flotante{display:flex;position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));
-    z-index:60;justify-content:center;box-shadow:0 8px 26px rgba(20,24,31,.26)}
-  body{padding-bottom:78px}
+  .wpp-cta.flotante{display:flex;position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));
+    z-index:60;width:60px;height:60px;padding:0;border-radius:50%;justify-content:center;
+    box-shadow:0 8px 22px rgba(20,24,18,.32)}
+  .flotante .rotulo{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .flotante .ico-wa{width:28px;height:28px}
+  body{padding-bottom:84px}
 }
+
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 ${f.css || ""}
 ${cssAsesor()}
@@ -589,6 +638,9 @@ ${cssAsesor()}
 
 /** El <head>: es lo que leen Google y WhatsApp al compartir el enlace. */
 function cabeza(marca, { titulo, descripcion, ruta, jsonLd = [], noindex = false }) {
+  titulo = titulo.length > 60 ? titulo.replace(/\s*\|[^|]*$/, "") : titulo;
+  titulo = recortar(titulo, 60);
+  descripcion = recortar(descripcion, 158);
   const url = `https://${marca.dominio}${ruta}`;
   const med = marca.medicion || {};
   const gtag = [med.ga4, med.googleAds].filter(Boolean);
@@ -626,8 +678,18 @@ ${gtag.map((id) => `  gtag('config', '${esc(id)}');`).join("\n")}
 <script defer src="nucleo/track.js"></script>
 <script defer src="nucleo/meta-pixel.js"></script>
 <script defer src="nucleo/wa-firma.js"></script>
+<!-- En computador WhatsApp sale como QR (wa-qr.js) y la conversión de Google
+     solo cuenta cuando el chat de verdad se abre (wa-conversion.js). -->
+<script defer src="nucleo/qr-lib.js"></script>
+<script defer src="nucleo/wa-qr.js"></script>
+<script defer src="nucleo/wa-conversion.js"></script>
 <script defer src="nucleo/estado-asesor.js"></script>
 <script defer src="nucleo/catalogo-vivo.js"></script>
+${med.clarity ? `<script>
+  (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${esc(med.clarity)}");
+</script>` : "<!-- Sin Clarity todavía: se activa al llenar medicion.clarity en la ficha. -->"}
 ${jsonLd.map((j) => `<script type="application/ld+json">\n${JSON.stringify(j, null, 2)}\n</script>`).join("\n")}
 </head>
 <body>`;
@@ -647,11 +709,12 @@ function encabezado(marca, modelos) {
     <button class="nav-toggle" aria-label="Ver los modelos" aria-expanded="false">Modelos<span class="chev" aria-hidden="true"></span></button>
     <div class="nav-links">
       ${menu}
+      ${marca.paginaPrecios ? `<a href="${esc(rel(marca.paginaPrecios))}">Precios</a>` : ""}
       ${marca.paginaCredito ? `<a href="${esc(rel(marca.paginaCredito))}">Crédito</a>` : ""}
     </div>
     ${boton(marca, {
       texto: "Escríbeme",
-      mensaje: `Hola ${marca.asesor}, quiero información de un ${marca.marca} en Medellín.`,
+      mensaje: `${marca.hola} quiero información de un ${marca.marca} en Medellín.`,
       ctx: "header",
       clase: "chico",
     })}
@@ -675,7 +738,7 @@ function pie(marca, { ctxFinal = "cierre_final", tituloFinal, textoFinal, mensaj
   <div class="env">
     <h2>${esc(tituloFinal)}</h2>
     <p>${esc(textoFinal)}</p>
-    ${boton(marca, { texto: `Hablar con ${marca.asesor}`, mensaje: mensajeFinal, ctx: ctxFinal, clase: "grande", estado: true })}
+    ${boton(marca, { texto: `Hablar con ${marca.asesorTexto}`, mensaje: mensajeFinal, ctx: ctxFinal, clase: "grande", estado: true })}
   </div>
 </section>
 
@@ -694,7 +757,7 @@ ${
     ${
       rutaLegal
         ? `<p style="font-size:12.5px;color:var(--suave);margin:12px auto 0;max-width:52ch">
-      Al dejar tus datos autorizas que ${esc(marca.asesor)} te contacte sobre vehículos
+      Al dejar tus datos autorizas que ${esc(marca.asesorTexto)} te contacte sobre vehículos
       ${esc(marca.marcasTexto || marca.marca)}. Puedes pedir que los borre cuando quieras.
       <a href="${esc(rutaLegal)}">Cómo se tratan tus datos</a>.
     </p>`
@@ -712,13 +775,15 @@ ${
       <div class="logo" style="margin-bottom:8px"><span class="marca-punto"></span>${esc(marca.nombrePublico)}</div>
       <div style="display:flex;align-items:center;gap:10px">
         ${avatar(marca, { claro: true })}
-        <span>${esc(marca.asesor)} · asesor comercial ${esc(marca.marcasTexto || marca.marca)} en Medellín</span>
+        <span>${esc(marca.asesor ? `${marca.asesorTexto} · asesor comercial` : "Asesor comercial")} ${esc(marca.marcasTexto || marca.marca)} en Medellín</span>
       </div>
       ${chipOrigen(marca, { claro: true }) ? `<div style="margin-top:10px">${chipOrigen(marca, { claro: true })}</div>` : ""}
       ${avisos.map((a) => `<div style="margin-top:6px;max-width:58ch">${esc(a)}</div>`).join("\n      ")}
     </div>
     <div class="pie-links">
       <a href="index.html">Inicio</a>
+      ${marca.paginaPrecios ? `<a href="${esc(rel(marca.paginaPrecios))}">Precios</a>` : ""}
+      ${(marca.guias || []).map(([t, r]) => `<a href="${esc(rel(r))}">${esc(t)}</a>`).join("\n      ")}
       ${marca.paginaCredito ? `<a href="${esc(rel(marca.paginaCredito))}">Crédito</a>` : ""}
       <a href="https://wa.me/${esc(marca.whatsapp)}">WhatsApp</a>
       ${rutaLegal ? `<a href="${esc(rutaLegal)}">Notas legales</a>` : ""}
@@ -728,7 +793,7 @@ ${
 
 ${boton(marca, {
   texto: "Cotizar por WhatsApp",
-  mensaje: `Hola ${marca.asesor}, quiero cotizar un ${marca.marca}.`,
+  mensaje: `${marca.hola} quiero cotizar un ${marca.marca}.`,
   ctx: "flotante_movil",
   clase: "flotante",
 })}
@@ -838,10 +903,10 @@ function fotoAsesor(marca, contenido, { primera = false } = {}) {
   const carga = primera ? 'fetchpriority="high"' : 'loading="lazy"';
   const webp = f.webp ? `<source srcset="fotos/${esc(f.webp)}" type="image/webp">` : "";
   return `<div class="foto-asesor">
-      <div class="marco"><picture>${webp}<img src="fotos/${esc(f.src)}" alt="${esc(f.alt || marca.asesor)}" ${carga} decoding="async"></picture></div>
+      <div class="marco"><picture>${webp}<img src="fotos/${esc(f.src)}" alt="${esc(f.alt || marca.asesorTexto)}" ${carga} decoding="async"></picture></div>
       <div class="firma">
         ${avatar(marca)}
-        <div><b>${esc(marca.asesor)}</b><span>${esc(a.cargo || `Asesor ${marca.marca} en Medellín`)}</span><span class="estado-asesor" data-prefijo=" "></span></div>
+        <div><b>${esc(marca.asesor || `Tu asesor ${marca.marca}`)}</b><span>${esc(a.cargo || `Asesor ${marca.marca} en Medellín`)}</span><span class="estado-asesor" data-prefijo=" "></span></div>
       </div>
     </div>`;
 }
@@ -852,10 +917,10 @@ function seccionAsesor(marca, contenido) {
   if (!a) return "";
   const f = a.foto || {};
   return `<section class="sec" id="asesor">
-  <div class="env asesor-grid">
-    <div class="marco">${f.src ? `<img src="fotos/${esc(f.src)}" alt="${esc(f.alt || marca.asesor)}" loading="lazy" decoding="async">` : ""}</div>
+  <div class="env ${f.src ? "asesor-grid" : ""}" ${f.src ? "" : 'style="max-width:860px"'}>
+    ${f.src ? `<div class="marco"><img src="fotos/${esc(f.src)}" alt="${esc(f.alt || marca.asesorTexto)}" loading="lazy" decoding="async"></div>` : ""}
     <div>
-      <h2>${esc(a.titulo || `¿Por qué comprarle a ${marca.asesor}?`)}</h2>
+      <h2>${esc(a.titulo || `¿Por qué comprarle a ${marca.asesorTexto}?`)}</h2>
       <p class="asesor-bio">${esc(a.bio || "")}</p>
       <div class="promesas">
         ${(a.promesas || [])
@@ -869,8 +934,8 @@ function seccionAsesor(marca, contenido) {
       </div>
       <div style="margin-top:26px">
         ${boton(marca, {
-          texto: `Escribirle a ${marca.asesor}`,
-          mensaje: `Hola ${marca.asesor}, vi tu página y quiero que me asesores.`,
+          texto: `Escribirle a ${marca.asesorTexto}`,
+          mensaje: `${marca.hola} vi tu página y quiero que me asesores.`,
           ctx: "asesor_seccion",
           estado: true,
         })}
@@ -886,9 +951,9 @@ function asesorMini(marca, contenido, texto) {
   if (!a) return "";
   const f = marca.asesorFoto || {};
   return `<div class="asesor-mini">
-      ${f.src ? `<img src="fotos/${esc(f.src)}" alt="${esc(marca.asesor)}" loading="lazy" decoding="async">` : avatar(marca, { claro: true })}
-      <p><b>${esc(marca.asesor)}</b> · ${esc(a.cargo || "")}<br>${esc(texto)}</p>
+      ${f.src ? `<img src="fotos/${esc(f.src)}" alt="${esc(marca.asesorTexto)}" loading="lazy" decoding="async">` : avatar(marca, { claro: true })}
+      <p><b>${esc(marca.asesor || `Tu asesor ${marca.marca}`)}</b> · ${esc(a.cargo || "")}<br>${esc(texto)}</p>
     </div>`;
 }
 
-module.exports = { fotoAsesor, seccionAsesor, asesorMini, marcaDe, nombreCompleto, TIPOGRAFIAS, esc, cop, copCorto, rel, wa, boton, estilos, cabeza, encabezado, pie, chipOrigen, avatar, tiraHero, ICONO_WA };
+module.exports = { recortar, fotoAsesor, seccionAsesor, asesorMini, marcaDe, nombreCompleto, TIPOGRAFIAS, esc, cop, copCorto, rel, wa, boton, estilos, cabeza, encabezado, pie, chipOrigen, avatar, tiraHero, ICONO_WA };

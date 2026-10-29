@@ -62,7 +62,7 @@ ${encabezado(marca, marca.modelos)}
         <div style="margin-top:18px">
           ${boton(marca, {
             texto: "Pedir el crédito de verdad",
-            mensaje: `Hola ${marca.asesor}, quiero solicitar crédito para un ${marca.marca}. Te cuento mi situación.`,
+            mensaje: `${marca.hola} quiero solicitar crédito para un ${marca.marca}. Te cuento mi situación.`,
             ctx: "credito_hero",
             clase: "grande",
             estado: true,
@@ -116,7 +116,7 @@ ${
 ${pie(marca, {
   tituloFinal: "Miremos tu caso con números reales",
   textoFinal: "El simulador da una idea. Con tu situación te digo qué banco te sirve y cuánto te aprueban.",
-  mensajeFinal: `Hola ${marca.asesor}, quiero solicitar mi crédito para un ${marca.marca}.`,
+  mensajeFinal: `${marca.hola} quiero solicitar mi crédito para un ${marca.marca}.`,
   ctxFinal: "credito_final",
 })}`;
 };

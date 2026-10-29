@@ -11,6 +11,8 @@ const { marcoFoto, tarjetaModelo, bloqueFaq, hayFaq, jsonLdNegocio } = require("
 
 module.exports = function portada(marca, contenido, precios) {
   const h = contenido.hero;
+  // Sin retrato del asesor, el hero muestra un carro: mejor eso que un hueco.
+  const tieneFotoAsesor = Boolean(contenido.asesor && contenido.asesor.foto && contenido.asesor.foto.src);
   const modelos = marca.modelos;
   const barato = precios.masBarato;
   // El "desde" del híbrido: el más barato de las líneas que la ficha marca
@@ -48,7 +50,7 @@ module.exports = function portada(marca, contenido, precios) {
   })}
 ${encabezado(marca, modelos)}
 
-<section class="hero${contenido.asesor ? " hero-asesor" : ""}">
+<section class="hero${tieneFotoAsesor ? " hero-asesor" : ""}">
   <div class="env hero-grid">
     <div>
       <span class="cinta">${esc(h.cinta)}</span>${chipOrigen(marca)}
@@ -77,7 +79,7 @@ ${encabezado(marca, modelos)}
       <div class="hero-acciones">
         ${boton(marca, {
           texto: h.boton || "Cotizar ahora",
-          mensaje: h.mensaje || `Hola ${marca.asesor}, quiero cotizar un ${marca.marca} en Medellín.`,
+          mensaje: h.mensaje || `${marca.hola} quiero cotizar un ${marca.marca} en Medellín.`,
           ctx: "hero_principal",
           clase: "grande",
           estado: true,
@@ -89,10 +91,10 @@ ${encabezado(marca, modelos)}
     ${(() => {
       // Con asesor, la foto del hero es la suya: la página abre con una cara,
       // no con un carro.
-      if (contenido.asesor) return fotoAsesor(marca, contenido, { primera: true });
+      if (tieneFotoAsesor) return fotoAsesor(marca, contenido, { primera: true });
       const f = contenido.heroFoto;
       if (!f) {
-        return marcoFoto({ alto: true, que: `Foto de ${marca.asesor} entregando un ${marca.marca}`, medida: "1200 × 900" });
+        return marcoFoto({ alto: true, que: `Foto de ${marca.asesorTexto} entregando un ${marca.marca}`, medida: "1200 × 900" });
       }
       return marcoFoto({
         src: `fotos/${f.src}`,
@@ -119,6 +121,20 @@ ${encabezado(marca, modelos)}
 
 ${seccionAsesor(marca, contenido)}
 
+${
+  (marca.guias || []).length
+    ? `<section class="sec franja" id="guias">
+  <div class="env">
+    <h2 class="sec-title">Guías para escoger</h2>
+    <p class="sec-sub">Lo que la gente pregunta antes de decidirse, con los datos de las fichas.</p>
+    <div class="guias">
+      ${marca.guias.map(([t, r, d]) => `<a class="guia" href="${esc(rel(r))}"><b>${esc(t)}</b><span>${esc(d)}</span></a>`).join("\n      ")}
+    </div>
+  </div>
+</section>`
+    : ""
+}
+
 <section class="sec franja" id="credito">
   <div class="env franja-par">
     <div>
@@ -136,7 +152,7 @@ ${seccionAsesor(marca, contenido)}
       <a class="boton fantasma" href="${esc(rel(marca.paginaCredito))}" style="text-decoration:none">Simular la cuota</a>
       ${boton(marca, {
         texto: "Preguntar por crédito",
-        mensaje: `Hola ${marca.asesor}, quiero saber cómo me queda la cuota de un ${marca.marca}.`,
+        mensaje: `${marca.hola} quiero saber cómo me queda la cuota de un ${marca.marca}.`,
         ctx: "credito_teaser",
       })}
     </div>
@@ -158,7 +174,7 @@ ${
 ${pie(marca, {
   tituloFinal: `¿Listo para estrenar tu ${marca.marca}?`,
   textoFinal: `Escríbeme y te digo el precio del día, qué bono hay vigente y cómo te queda la cuota. Sin compromiso.`,
-  mensajeFinal: `Hola ${marca.asesor}, quiero estrenar un ${marca.marca}. ¿Me ayudas?`,
+  mensajeFinal: `${marca.hola} quiero estrenar un ${marca.marca}. ¿Me ayudas?`,
   ctxFinal: "cierre_final",
 })}`;
 };

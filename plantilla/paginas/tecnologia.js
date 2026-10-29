@@ -34,7 +34,7 @@ ${encabezado(marca, marca.modelos)}
     <div class="hero-acciones">
       ${boton(marca, {
         texto: "¿Me conviene a mí?",
-        mensaje: `Hola ${marca.asesor}, quiero saber si un ${marca.marca} híbrido me conviene.`,
+        mensaje: `${marca.hola} quiero saber si un ${marca.marca} híbrido me conviene.`,
         ctx: "tecnologia_hero",
         clase: "grande",
         estado: true,
@@ -98,7 +98,7 @@ ${
 ${pie(marca, {
   tituloFinal: "¿Te sirve un híbrido o te conviene más uno de gasolina?",
   textoFinal: "Depende de cuántos kilómetros hagas y de por dónde. Cuéntame tu día y te digo cuál te sale mejor, aunque sea el más barato.",
-  mensajeFinal: `Hola ${marca.asesor}, quiero saber si me conviene un ${marca.marca} híbrido.`,
+  mensajeFinal: `${marca.hola} quiero saber si me conviene un ${marca.marca} híbrido.`,
   ctxFinal: "tecnologia_final",
 })}`;
 };

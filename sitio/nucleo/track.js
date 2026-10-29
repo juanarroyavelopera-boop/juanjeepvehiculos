@@ -210,31 +210,61 @@
   // que este núcleo entre a ese sitio sin reescribir las nueve fichas.
   window.ASM_TRACK = window.MEDICION;
 
-  var esMovil = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  // MISMA condición que wa-qr.js y wa-conversion.js: en un iPad en modo
+  // escritorio o un portátil táctil los tres archivos tienen que estar de
+  // acuerdo sobre si WhatsApp se abre o no.
+  var esMovil = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+    !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  // ¿El clic abre WhatsApp de una? En móvil sí. En computador solo si el modal
+  // QR no intercepta (wa-qr.js prende ASM_QR_ACTIVO cuando se instala).
+  function abreDirecto() {
+    return esMovil || !window.ASM_QR_ACTIVO;
+  }
+
+  // Cualquier enlace a WhatsApp que no es un botón .wpp-cta también se mide:
+  // muestras de color, filas de versiones, filas de la página de precios.
+  var WA_EXTRA = '[data-wa], .wa-extra, a[href*="wa.me/"], a[href*="api.whatsapp.com"]';
+  function ctxExtra(a) {
+    if (a.classList.contains('vrow')) return 'precios_version';
+    if (a.classList.contains('wa-extra')) return 'version_fila';
+    return 'enlace_whatsapp';
+  }
+  window.MEDICION.WA_EXTRA = WA_EXTRA;
+  window.MEDICION.ctxExtra = ctxExtra;
 
   // ---- Listeners en fase CAPTURA: corren antes que los gtag de la página ----
   document.addEventListener('click', function (e) {
     var t = e.target;
     if (!t || !t.closest) return;
 
-    var alt = t.closest('#waqr-alt'); // "Prefiero WhatsApp Web" del modal QR (desktop)
-    if (alt) { send('whatsapp_open_attempt', 'waqr_web_fallback', {}); return; }
+    // leadEventId: el id del evento que Meta cuenta como Lead. meta-pixel.js lo
+    // manda con ESE id y el CRM (CAPI) cuenta Lead con el mismo evento, así Meta
+    // deduplica. null = este clic no es Lead (solo se abrió el modal QR).
+    window.MEDICION.leadEventId = null;
 
-    // .wpp-cta son los botones verdes; [data-wa] es cualquier otro enlace a
-    // WhatsApp que también cuenta como conversión (las muestras de color de la
-    // ficha). Sin esto un clic en "quiero el rojo" abría el chat y no se medía.
-    var wa = t.closest('.wpp-cta, [data-wa]');
+    var alt = t.closest('#waqr-alt'); // "Prefiero WhatsApp Web" del modal QR (desktop)
+    if (alt) { window.MEDICION.leadEventId = send('whatsapp_open_attempt', 'waqr_web_fallback', {}); return; }
+
+    var wa = t.closest('.wpp-cta') || t.closest(WA_EXTRA);
     if (wa) {
-      var ctx = wa.getAttribute('data-ctx') || 'general';
-      send('cta_whatsapp_click', ctx, {});
-      // en móvil el clic navega directo a WhatsApp = intento de apertura real;
-      // en desktop solo sale el modal QR (la apertura se mide en #waqr-alt)
-      if (esMovil) send('whatsapp_open_attempt', ctx, {});
+      var ctx = wa.getAttribute('data-ctx') || ctxExtra(wa);
+      var clicId = send('cta_whatsapp_click', ctx, {});
+      // Si el clic abre WhatsApp de una, eso es la apertura real (y el Lead).
+      // Con el modal QR la apertura se mide en #waqr-alt o al escanear (ir.html).
+      if (abreDirecto()) {
+        window.MEDICION.leadEventId = send('whatsapp_open_attempt', ctx, {});
+        // La conversión de Google usa lastEventId como transaction_id: el del clic.
+        window.MEDICION.lastEventId = clicId;
+      }
       return;
     }
 
     var call = t.closest('.call-cta');
-    if (call) { send('phone_click', call.getAttribute('data-ctx') || 'general', {}); }
+    if (call) {
+      var callId = send('phone_click', call.getAttribute('data-ctx') || 'general', {});
+      // En computador "Llamar" no marca a ningún lado: no es Lead.
+      if (esMovil) window.MEDICION.leadEventId = callId;
+    }
   }, true);
 
   document.addEventListener('submit', function (e) {

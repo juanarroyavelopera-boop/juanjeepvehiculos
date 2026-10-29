@@ -272,12 +272,43 @@ header{position:sticky;top:0;z-index:50;background:var(--vidrio);
 .tabla td:first-child{color:var(--suave);width:44%}
 .tabla td:last-child{font-weight:600;font-variant-numeric:tabular-nums}
 .envuelve-tabla{overflow-x:auto}
+.ver-mas-specs{display:none;text-align:center;margin:14px 0 0}
+@media (max-width:760px){
+  .plegable:not(.abierta) tr:nth-child(n+7){display:none}
+  .ver-mas-specs{display:block}
+}
 .versiones{display:grid;gap:12px}
 .ver-row{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;
   border:1px solid var(--raya);border-radius:12px;padding:14px 16px}
 .ver-row .nom{font-weight:700}
 .ver-row .det{font-size:13px;color:var(--suave)}
 .ver-row .pr{font-family:var(--titulos);font-size:26px;white-space:nowrap}
+a.ver-row{text-decoration:none;color:inherit;transition:border-color .15s ease,box-shadow .15s ease}
+a.ver-row:hover{border-color:var(--marca);box-shadow:0 6px 18px rgba(20,24,18,.08)}
+.ver-row .pr{text-align:right}
+.ver-wa{display:block;font-family:Inter,system-ui,sans-serif;font-size:12.5px;font-weight:700;color:var(--wa);letter-spacing:.01em}
+
+/* ── página de precios y comparativas ── */
+.tabla-precios{width:100%;border-collapse:collapse}
+.tabla-precios .modelo-fila th{text-align:left;padding:22px 4px 8px;font-family:var(--titulos);font-size:22px;font-weight:600}
+.tabla-precios .modelo-fila a{text-decoration:none}
+.tabla-precios .modelo-fila a:hover{text-decoration:underline}
+.vrow{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px 14px;margin:0 0 8px;
+  border:1px solid var(--raya);border-radius:10px;text-decoration:none;color:inherit;background:var(--tarjeta)}
+.vrow:hover{border-color:var(--marca)}
+.vrow b{display:block;font-size:15px}
+.vrow small{display:block;font-size:12.5px;color:var(--suave)}
+.vrow .vp{text-align:right;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.vrow em{display:block;font-style:normal;font-size:12.5px;color:var(--wa)}
+.nota-precios{font-size:13px;color:var(--suave);margin-top:16px}
+.tabla.comparar th{text-align:left;padding:10px 6px;border-bottom:2px solid var(--marca);font-size:14px}
+.tabla.comparar td:first-child{width:auto;min-width:130px}
+.tabla.comparar td{font-weight:500}
+.guias{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:18px}
+.guia{display:block;padding:16px;border:1px solid var(--raya);border-radius:10px;background:var(--tarjeta);text-decoration:none;color:inherit}
+.guia:hover{border-color:var(--marca)}
+.guia b{display:block;font-size:15.5px;margin-bottom:4px}
+.guia span{font-size:13.5px;color:var(--suave)}
 
 /* ── franja, faq, boletín, pie ── */
 .franja{background:var(--fondo)}
@@ -319,11 +350,18 @@ footer{padding-block:34px;border-top:3px solid var(--divisor);background:var(--p
 
 /* ── botón flotante en celular ── */
 .flotante{display:none}
+/* Burbuja compacta (aprendido en Suzuki, oct-2026): la barra a lo ancho
+   tapaba botones de la página en celular. Un círculo en la esquina sigue
+   siendo el botón más tocado y no tapa nada. */
 @media (max-width:1040px){
-  .flotante{display:flex;position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));
-    z-index:60;justify-content:center;box-shadow:0 8px 26px rgba(20,24,31,.26)}
-  body{padding-bottom:78px}
+  .wpp-cta.flotante{display:flex;position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));
+    z-index:60;width:60px;height:60px;padding:0;border-radius:50%;justify-content:center;
+    box-shadow:0 8px 22px rgba(20,24,18,.32)}
+  .flotante .rotulo{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .flotante .ico-wa{width:28px;height:28px}
+  body{padding-bottom:84px}
 }
+
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 h1,h2,h3,.bebas{font-weight:600;letter-spacing:-.01em;line-height:1.12}
@@ -387,8 +425,14 @@ h2{font-size:clamp(26px,3.8vw,38px)}
 <script defer src="nucleo/track.js"></script>
 <script defer src="nucleo/meta-pixel.js"></script>
 <script defer src="nucleo/wa-firma.js"></script>
+<!-- En computador WhatsApp sale como QR (wa-qr.js) y la conversión de Google
+     solo cuenta cuando el chat de verdad se abre (wa-conversion.js). -->
+<script defer src="nucleo/qr-lib.js"></script>
+<script defer src="nucleo/wa-qr.js"></script>
+<script defer src="nucleo/wa-conversion.js"></script>
 <script defer src="nucleo/estado-asesor.js"></script>
 <script defer src="nucleo/catalogo-vivo.js"></script>
+<!-- Sin Clarity todavía: se activa al llenar medicion.clarity en la ficha. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -533,20 +577,19 @@ h2{font-size:clamp(26px,3.8vw,38px)}
       <a href="jeep-commander-medellin.html">Commander</a>
       <a href="jeep-wrangler-medellin.html">Wrangler</a>
       <a href="jeep-gladiator-medellin.html">Gladiator</a>
-      <a href="ram-700-medellin.html">RAM 700</a>
-      <a href="ram-1500-medellin.html">RAM 1500</a>
+      <a href="precios-jeep-ram-medellin.html">Precios</a>
       <a href="jeep-credito-medellin.html">Crédito</a>
     </div>
-    <a class="wpp-cta chico" data-ctx="header" href="https://wa.me/?text=Hola%20Juan%20Camilo%2C%20quiero%20informaci%C3%B3n%20de%20un%20Jeep%20en%20Medell%C3%ADn."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Escríbeme</span></a>
+    <a class="wpp-cta chico" data-ctx="header" href="https://wa.me/?text=Hola%2C%20quiero%20informaci%C3%B3n%20de%20un%20Jeep%20en%20Medell%C3%ADn."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Escríbeme</span></a>
   </nav>
 </header>
 
-<section class="hero hero-asesor">
+<section class="hero">
   <div class="env hero-grid">
     <div>
       <span class="cinta">Asesor directo · Medellín</span>
-      <h1>Tu Jeep o tu RAM, con un asesor que te conoce por tu nombre</h1>
-      <p class="bajada">Soy Juan Camilo. Te asesoro en Jeep y RAM: te digo el precio real del día, la versión que te sirve y cómo te queda la cuota. Sin formularios que nadie contesta.</p>
+      <h1>Tu Jeep o tu RAM, con un asesor que te atiende de principio a fin</h1>
+      <p class="bajada">Te asesoro en Jeep y RAM: te digo el precio real del día, la versión que te sirve y cómo te queda la cuota. Sin formularios que nadie contesta.</p>
       <div class="desdes">
       <p class="desde">
         <span class="rotulo">Estrena desde</span>
@@ -556,7 +599,7 @@ h2{font-size:clamp(26px,3.8vw,38px)}
       
     </div>
       <div class="hero-acciones">
-        <a class="wpp-cta grande" data-ctx="hero_principal" href="https://wa.me/?text=Hola%20Juan%2C%20vi%20tu%20p%C3%A1gina%20y%20quiero%20que%20me%20asesores%20con%20un%20Jeep%20o%20una%20RAM."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Hablar con Juan</span><span class="quien"><span class="avatar"><img src="fotos/juan-avatar.jpg" alt="Juan Camilo, asesor Jeep y RAM en Medellín" loading="lazy" decoding="async"></span><span class="estado-asesor"></span></span></a>
+        <a class="wpp-cta grande" data-ctx="hero_principal" href="https://wa.me/?text=Hola%2C%20vi%20la%20p%C3%A1gina%20y%20quiero%20asesor%C3%ADa%20para%20un%20Jeep%20o%20una%20RAM."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Escríbeme por WhatsApp</span><span class="quien"><span class="avatar" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 12a4.2 4.2 0 1 0 0-8.4 4.2 4.2 0 0 0 0 8.4Zm0 1.9c-4 0-7.2 2.2-7.2 5v1.2h14.4v-1.2c0-2.8-3.2-5-7.2-5Z"/></svg></span><span class="estado-asesor"></span></span></a>
         <a class="boton fantasma" href="#modelos" style="color:#fff;border-color:rgba(255,255,255,.3)">Ver los 7 modelos</a>
       </div>
       <div class="hero-ventajas">
@@ -574,13 +617,7 @@ h2{font-size:clamp(26px,3.8vw,38px)}
         </div>
       </div>
     </div>
-    <div class="foto-asesor">
-      <div class="marco"><picture><source srcset="fotos/juan-asesor.webp" type="image/webp"><img src="fotos/juan-asesor.jpg" alt="Juan Camilo, asesor comercial Jeep y RAM en Medellín" fetchpriority="high" decoding="async"></picture></div>
-      <div class="firma">
-        <span class="avatar"><img src="fotos/juan-avatar.jpg" alt="Juan Camilo, asesor Jeep y RAM en Medellín" loading="lazy" decoding="async"></span>
-        <div><b>Juan Camilo</b><span>Asesor Jeep y RAM en Medellín</span><span class="estado-asesor" data-prefijo=" "></span></div>
-      </div>
-    </div>
+    <div class="marco" style="aspect-ratio:3/2"><img src="fotos/avenger-hero.jpg" alt="Jeep Avenger gris en terreno rocoso" style="object-position:center 60%" fetchpriority="high" decoding="async"></div>
   </div>
 </section>
 
@@ -603,7 +640,7 @@ h2{font-size:clamp(26px,3.8vw,38px)}
             <div class="val thumb-price">$99.900.000</div>
           </div>
           <div class="acciones">
-            <a class="wpp-cta chico" data-ctx="modelo_avenger" href="https://wa.me/?text=Hola%20Juan%20Camilo%2C%20quiero%20cotizar%20el%20Jeep%20Avenger."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Cotizar</span></a>
+            <a class="wpp-cta chico" data-ctx="modelo_avenger" href="https://wa.me/?text=Hola%2C%20quiero%20cotizar%20el%20Jeep%20Avenger."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Cotizar</span></a>
             <a class="boton fantasma" href="jeep-avenger-medellin.html">Ver ficha</a>
           </div>
         </div>
@@ -622,7 +659,7 @@ h2{font-size:clamp(26px,3.8vw,38px)}
             <div class="val thumb-price">$135.990.000</div>
           </div>
           <div class="acciones">
-            <a class="wpp-cta chico" data-ctx="modelo_compass" href="https://wa.me/?text=Hola%20Juan%20Camilo%2C%20quiero%20cotizar%20el%20Jeep%20Compass."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Cotizar</span></a>
+            <a class="wpp-cta chico" data-ctx="modelo_compass" href="https://wa.me/?text=Hola%2C%20quiero%20cotizar%20el%20Jeep%20Compass."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Cotizar</span></a>
             <a class="boton fantasma" href="jeep-compass-medellin.html">Ver ficha</a>
           </div>
         </div>
@@ -641,7 +678,7 @@ h2{font-size:clamp(26px,3.8vw,38px)}
             <div class="val thumb-price">$185.990.000</div>
           </div>
           <div class="acciones">
-            <a class="wpp-cta chico" data-ctx="modelo_commander" href="https://wa.me/?text=Hola%20Juan%20Camilo%2C%20quiero%20cotizar%20el%20Jeep%20Commander."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Cotizar</span></a>
+            <a class="wpp-cta chico" data-ctx="modelo_commander" href="https://wa.me/?text=Hola%2C%20quiero%20cotizar%20el%20Jeep%20Commander."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Cotizar</span></a>
             <a class="boton fantasma" href="jeep-commander-medellin.html">Ver ficha</a>
           </div>
         </div>
@@ -660,7 +697,7 @@ h2{font-size:clamp(26px,3.8vw,38px)}
             <div class="val thumb-price">$322.990.000</div>
           </div>
           <div class="acciones">
-            <a class="wpp-cta chico" data-ctx="modelo_wrangler" href="https://wa.me/?text=Hola%20Juan%20Camilo%2C%20quiero%20cotizar%20el%20Jeep%20Wrangler."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Cotizar</span></a>
+            <a class="wpp-cta chico" data-ctx="modelo_wrangler" href="https://wa.me/?text=Hola%2C%20quiero%20cotizar%20el%20Jeep%20Wrangler."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Cotizar</span></a>
             <a class="boton fantasma" href="jeep-wrangler-medellin.html">Ver ficha</a>
           </div>
         </div>
@@ -679,7 +716,7 @@ h2{font-size:clamp(26px,3.8vw,38px)}
             <div class="val thumb-price">$375.990.000</div>
           </div>
           <div class="acciones">
-            <a class="wpp-cta chico" data-ctx="modelo_gladiator" href="https://wa.me/?text=Hola%20Juan%20Camilo%2C%20quiero%20cotizar%20el%20Jeep%20Gladiator."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Cotizar</span></a>
+            <a class="wpp-cta chico" data-ctx="modelo_gladiator" href="https://wa.me/?text=Hola%2C%20quiero%20cotizar%20el%20Jeep%20Gladiator."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Cotizar</span></a>
             <a class="boton fantasma" href="jeep-gladiator-medellin.html">Ver ficha</a>
           </div>
         </div>
@@ -698,7 +735,7 @@ h2{font-size:clamp(26px,3.8vw,38px)}
             <div class="val thumb-price">$75.990.000</div>
           </div>
           <div class="acciones">
-            <a class="wpp-cta chico" data-ctx="modelo_ram-700" href="https://wa.me/?text=Hola%20Juan%20Camilo%2C%20quiero%20cotizar%20la%20RAM%20700."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Cotizar</span></a>
+            <a class="wpp-cta chico" data-ctx="modelo_ram-700" href="https://wa.me/?text=Hola%2C%20quiero%20cotizar%20la%20RAM%20700."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Cotizar</span></a>
             <a class="boton fantasma" href="ram-700-medellin.html">Ver ficha</a>
           </div>
         </div>
@@ -717,7 +754,7 @@ h2{font-size:clamp(26px,3.8vw,38px)}
             <div class="val thumb-price">$277.990.000</div>
           </div>
           <div class="acciones">
-            <a class="wpp-cta chico" data-ctx="modelo_ram-1500" href="https://wa.me/?text=Hola%20Juan%20Camilo%2C%20quiero%20cotizar%20la%20RAM%201500."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Cotizar</span></a>
+            <a class="wpp-cta chico" data-ctx="modelo_ram-1500" href="https://wa.me/?text=Hola%2C%20quiero%20cotizar%20la%20RAM%201500."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Cotizar</span></a>
             <a class="boton fantasma" href="ram-1500-medellin.html">Ver ficha</a>
           </div>
         </div>
@@ -727,11 +764,11 @@ h2{font-size:clamp(26px,3.8vw,38px)}
 </section>
 
 <section class="sec" id="asesor">
-  <div class="env asesor-grid">
-    <div class="marco"><img src="fotos/juan-asesor.jpg" alt="Juan Camilo, asesor comercial Jeep y RAM en Medellín" loading="lazy" decoding="async"></div>
+  <div class="env " style="max-width:860px">
+    
     <div>
       <h2>Te atiendo yo, de principio a fin</h2>
-      <p class="asesor-bio">Soy Juan Camilo. Cuando me escribes no te pasa un robot ni un call center: te contesto yo. Te digo el precio del día, qué versión te conviene según cómo manejas y qué bono hay vigente, y te acompaño hasta que te entregan las llaves.</p>
+      <p class="asesor-bio">Cuando me escribes no te pasa un robot ni un call center: te contesto yo. Te digo el precio del día, qué versión te conviene según cómo manejas y qué bono hay vigente, y te acompaño hasta que te entregan las llaves.</p>
       <div class="promesas">
         <div class="promesa">
           <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20.5c.9-3.6 3.9-5.8 7.5-5.8s6.6 2.2 7.5 5.8"/></svg></span>
@@ -759,8 +796,21 @@ h2{font-size:clamp(26px,3.8vw,38px)}
         </div>
       </div>
       <div style="margin-top:26px">
-        <a class="wpp-cta " data-ctx="asesor_seccion" href="https://wa.me/?text=Hola%20Juan%20Camilo%2C%20vi%20tu%20p%C3%A1gina%20y%20quiero%20que%20me%20asesores."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Escribirle a Juan Camilo</span><span class="quien"><span class="avatar"><img src="fotos/juan-avatar.jpg" alt="Juan Camilo, asesor Jeep y RAM en Medellín" loading="lazy" decoding="async"></span><span class="estado-asesor"></span></span></a>
+        <a class="wpp-cta " data-ctx="asesor_seccion" href="https://wa.me/?text=Hola%2C%20vi%20tu%20p%C3%A1gina%20y%20quiero%20que%20me%20asesores."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Escribirle a tu asesor</span><span class="quien"><span class="avatar" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 12a4.2 4.2 0 1 0 0-8.4 4.2 4.2 0 0 0 0 8.4Zm0 1.9c-4 0-7.2 2.2-7.2 5v1.2h14.4v-1.2c0-2.8-3.2-5-7.2-5Z"/></svg></span><span class="estado-asesor"></span></span></a>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec franja" id="guias">
+  <div class="env">
+    <h2 class="sec-title">Guías para escoger</h2>
+    <p class="sec-sub">Lo que la gente pregunta antes de decidirse, con los datos de las fichas.</p>
+    <div class="guias">
+      <a class="guia" href="precios-jeep-ram-medellin.html"><b>Lista de precios</b><span>Todas las versiones con impuestos incluidos.</span></a>
+      <a class="guia" href="jeep-wrangler-sport-vs-rubicon-medellin.html"><b>Wrangler Sport o Rubicon</b><span>Qué cambia de verdad entre los dos y para quién es cada uno.</span></a>
+      <a class="guia" href="jeep-avenger-gasolina-hibrido-electrico-medellin.html"><b>Avenger: gasolina, híbrido o eléctrico</b><span>Las tres versiones del Avenger y cuál te sirve según cómo manejas.</span></a>
+      <a class="guia" href="ram-700-vs-ram-1500-medellin.html"><b>RAM 700 o RAM 1500</b><span>La pick-up compacta contra la grande: carga, arrastre y precio.</span></a>
     </div>
   </div>
 </section>
@@ -778,7 +828,7 @@ h2{font-size:clamp(26px,3.8vw,38px)}
     </div>
     <div class="acciones">
       <a class="boton fantasma" href="jeep-credito-medellin.html" style="text-decoration:none">Simular la cuota</a>
-      <a class="wpp-cta " data-ctx="credito_teaser" href="https://wa.me/?text=Hola%20Juan%20Camilo%2C%20quiero%20saber%20c%C3%B3mo%20me%20queda%20la%20cuota%20de%20un%20Jeep."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Preguntar por crédito</span></a>
+      <a class="wpp-cta " data-ctx="credito_teaser" href="https://wa.me/?text=Hola%2C%20quiero%20saber%20c%C3%B3mo%20me%20queda%20la%20cuota%20de%20un%20Jeep."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Preguntar por crédito</span></a>
     </div>
   </div>
 </section>
@@ -811,7 +861,7 @@ h2{font-size:clamp(26px,3.8vw,38px)}
   <div class="env">
     <h2>¿Listo para estrenar tu Jeep?</h2>
     <p>Escríbeme y te digo el precio del día, qué bono hay vigente y cómo te queda la cuota. Sin compromiso.</p>
-    <a class="wpp-cta grande" data-ctx="cierre_final" href="https://wa.me/?text=Hola%20Juan%20Camilo%2C%20quiero%20estrenar%20un%20Jeep.%20%C2%BFMe%20ayudas%3F"><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Hablar con Juan Camilo</span><span class="quien"><span class="avatar"><img src="fotos/juan-avatar.jpg" alt="Juan Camilo, asesor Jeep y RAM en Medellín" loading="lazy" decoding="async"></span><span class="estado-asesor"></span></span></a>
+    <a class="wpp-cta grande" data-ctx="cierre_final" href="https://wa.me/?text=Hola%2C%20quiero%20estrenar%20un%20Jeep.%20%C2%BFMe%20ayudas%3F"><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Hablar con tu asesor</span><span class="quien"><span class="avatar" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 12a4.2 4.2 0 1 0 0-8.4 4.2 4.2 0 0 0 0 8.4Zm0 1.9c-4 0-7.2 2.2-7.2 5v1.2h14.4v-1.2c0-2.8-3.2-5-7.2-5Z"/></svg></span><span class="estado-asesor"></span></span></a>
   </div>
 </section>
 
@@ -826,7 +876,7 @@ h2{font-size:clamp(26px,3.8vw,38px)}
       <button type="submit" class="boton">Avísame</button>
     </form>
     <p style="font-size:12.5px;color:var(--suave);margin:12px auto 0;max-width:52ch">
-      Al dejar tus datos autorizas que Juan Camilo te contacte sobre vehículos
+      Al dejar tus datos autorizas que tu asesor te contacte sobre vehículos
       Jeep y RAM. Puedes pedir que los borre cuando quieras.
       <a href="jeep-notas-legales-medellin.html">Cómo se tratan tus datos</a>.
     </p>
@@ -839,8 +889,8 @@ h2{font-size:clamp(26px,3.8vw,38px)}
     <div>
       <div class="logo" style="margin-bottom:8px"><span class="marca-punto"></span>Juan Jeep Vehículos</div>
       <div style="display:flex;align-items:center;gap:10px">
-        <span class="avatar claro"><img src="fotos/juan-avatar.jpg" alt="Juan Camilo, asesor Jeep y RAM en Medellín" loading="lazy" decoding="async"></span>
-        <span>Juan Camilo · asesor comercial Jeep y RAM en Medellín</span>
+        <span class="avatar claro" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 12a4.2 4.2 0 1 0 0-8.4 4.2 4.2 0 0 0 0 8.4Zm0 1.9c-4 0-7.2 2.2-7.2 5v1.2h14.4v-1.2c0-2.8-3.2-5-7.2-5Z"/></svg></span>
+        <span>Asesor comercial Jeep y RAM en Medellín</span>
       </div>
       
       <div style="margin-top:6px;max-width:58ch">Sitio de un asesor comercial independiente. No es el sitio oficial de Jeep, de RAM ni de Stellantis.</div>
@@ -849,6 +899,11 @@ h2{font-size:clamp(26px,3.8vw,38px)}
     </div>
     <div class="pie-links">
       <a href="index.html">Inicio</a>
+      <a href="precios-jeep-ram-medellin.html">Precios</a>
+      <a href="precios-jeep-ram-medellin.html">Lista de precios</a>
+      <a href="jeep-wrangler-sport-vs-rubicon-medellin.html">Wrangler Sport o Rubicon</a>
+      <a href="jeep-avenger-gasolina-hibrido-electrico-medellin.html">Avenger: gasolina, híbrido o eléctrico</a>
+      <a href="ram-700-vs-ram-1500-medellin.html">RAM 700 o RAM 1500</a>
       <a href="jeep-credito-medellin.html">Crédito</a>
       <a href="https://wa.me/">WhatsApp</a>
       <a href="jeep-notas-legales-medellin.html">Notas legales</a>
@@ -856,7 +911,7 @@ h2{font-size:clamp(26px,3.8vw,38px)}
   </div>
 </footer>
 
-<a class="wpp-cta flotante" data-ctx="flotante_movil" href="https://wa.me/?text=Hola%20Juan%20Camilo%2C%20quiero%20cotizar%20un%20Jeep."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Cotizar por WhatsApp</span></a>
+<a class="wpp-cta flotante" data-ctx="flotante_movil" href="https://wa.me/?text=Hola%2C%20quiero%20cotizar%20un%20Jeep."><svg class="ico-wa" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 21.785h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg><span class="rotulo">Cotizar por WhatsApp</span></a>
 
 <script>
 /* El menú del celular. Es lo único de JavaScript propio que tiene la página:

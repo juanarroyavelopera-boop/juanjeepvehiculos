@@ -71,7 +71,7 @@ function tarjetaModelo(marca, contenido, modelo, precio) {
           <div class="acciones">
             ${boton(marca, {
               texto: "Cotizar",
-              mensaje: `Hola ${marca.asesor}, quiero cotizar ${c.articulo || "el"} ${nombreCompleto(marca, modelo)}.`,
+              mensaje: `${marca.hola} quiero cotizar ${c.articulo || "el"} ${nombreCompleto(marca, modelo)}.`,
               ctx: `modelo_${modelo.linea.toLowerCase()}`,
               clase: "chico",
             })}

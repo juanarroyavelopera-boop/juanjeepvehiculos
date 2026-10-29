@@ -1,21 +1,19 @@
 {
-  "_": "Ficha de Juan Jeep Vehículos. Vende Jeep y RAM (no Fiat). Lo que falta está en _pendiente.",
+  "_": "Ficha de Juan Jeep Vehículos. Vende Jeep y RAM (no Fiat). Es un sitio para un asesor CLIENTE (no es Juan Camilo): su nombre, foto y número van acá cuando se sepan. Mientras tanto la página dice 'tu asesor'.",
   "_pendiente": [
-    "whatsapp: el número de Juan para Jeep (573XXXXXXXXX)",
+    "asesor / asesorNombreCompleto / asesorFoto: los datos del asesor cliente que va a atender Jeep",
     "businessId: crear el negocio Jeep en el CRM y pegar su id",
     "dominio: confirmar juanjeepvehiculos.com y comprarlo",
-    "medicion: GA4, Google Ads, pixel de Meta"
+    "medicion: GA4, Google Ads, pixel de Meta",
+    "whatsapp: el número del asesor (573XXXXXXXXX)"
   ],
   "sigla": "JJV",
   "prefijoCookie": "jjv",
   "marca": "Jeep",
   "dominio": "juanjeepvehiculos.com",
   "nombrePublico": "Juan Jeep Vehículos",
-  "asesor": "Juan Camilo",
-  "asesorFoto": {
-    "src": "juan-avatar.jpg",
-    "alt": "Juan Camilo, asesor Jeep y RAM en Medellín"
-  },
+  "asesor": "",
+  "asesorFoto": null,
   "whatsapp": "",
   "businessId": "",
   "crm": "https://crm-plataforma-three.vercel.app",
@@ -114,6 +112,9 @@
   "pesos": {},
   "paginaCredito": "/jeep-credito-medellin.html",
   "paginaLegal": "/jeep-notas-legales-medellin.html",
-  "menuMax": 7,
-  "marcasTexto": "Jeep y RAM"
+  "menuMax": 5,
+  "marcasTexto": "Jeep y RAM",
+  "asesorNombreCompleto": "",
+  "paginaPrecios": "/precios-jeep-ram-medellin.html",
+  "indexNowKey": "ac642b8b4fc83fa8265d04d31491d31d"
 }

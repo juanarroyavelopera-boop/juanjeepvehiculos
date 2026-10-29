@@ -1,14 +1,10 @@
 {
-  "_": "Contenido de Juan Jeep Vehículos: textos y especificaciones. Las specs salen de las fichas oficiales que mandó Juan (sep 2026). Los PRECIOS no están acá: los manda el CRM en vivo y el respaldo está en precios/jeep.json.",
+  "_": "Contenido de Juan Jeep Vehículos. Textos en primera persona del asesor, SIN su nombre (el sitio es para un asesor cliente; el nombre sale de la ficha). Specs de las fichas oficiales (sep 2026). Los PRECIOS van en precios/jeep.json.",
   "asesor": {
-    "cargo": "Asesor Jeep y RAM en Medellín",
-    "foto": {
-      "src": "juan-asesor.jpg",
-      "webp": "juan-asesor.webp",
-      "alt": "Juan Camilo, asesor comercial Jeep y RAM en Medellín"
-    },
+    "cargo": "Asesor comercial Jeep y RAM en Medellín",
+    "foto": null,
     "titulo": "Te atiendo yo, de principio a fin",
-    "bio": "Soy Juan Camilo. Cuando me escribes no te pasa un robot ni un call center: te contesto yo. Te digo el precio del día, qué versión te conviene según cómo manejas y qué bono hay vigente, y te acompaño hasta que te entregan las llaves.",
+    "bio": "Cuando me escribes no te pasa un robot ni un call center: te contesto yo. Te digo el precio del día, qué versión te conviene según cómo manejas y qué bono hay vigente, y te acompaño hasta que te entregan las llaves.",
     "promesas": [
       {
         "icono": "persona",
@@ -40,14 +36,15 @@
         "titulo": "Medellín y toda Colombia",
         "apoyo": "Cotizas y avanzas desde donde estés."
       }
-    ]
+    ],
+    "_foto": "El retrato del asesor cliente: {src, webp, alt}. Sin foto, el hero muestra un carro (heroFoto)."
   },
   "hero": {
     "cinta": "Asesor directo · Medellín",
-    "titulo": "Tu Jeep o tu RAM, con un asesor que te conoce por tu nombre",
-    "bajada": "Soy Juan Camilo. Te asesoro en Jeep y RAM: te digo el precio real del día, la versión que te sirve y cómo te queda la cuota. Sin formularios que nadie contesta.",
-    "boton": "Hablar con Juan",
-    "mensaje": "Hola Juan, vi tu página y quiero que me asesores con un Jeep o una RAM.",
+    "titulo": "Tu Jeep o tu RAM, con un asesor que te atiende de principio a fin",
+    "bajada": "Te asesoro en Jeep y RAM: te digo el precio real del día, la versión que te sirve y cómo te queda la cuota. Sin formularios que nadie contesta.",
+    "boton": "Escríbeme por WhatsApp",
+    "mensaje": "Hola, vi la página y quiero asesoría para un Jeep o una RAM.",
     "desde": "Estrena desde",
     "desdeNota": "RAM 700 cabina sencilla · Jeep desde el Avenger",
     "ventajas": [
@@ -104,7 +101,7 @@
   ],
   "galeriaNota": "Fotos oficiales de la marca, de referencia. El color y el equipamiento cambian según la versión.",
   "legal": {
-    "_": "El responsable y el correo los llena Juan: sin ellos el aviso de datos no sirve, y el generador avisa.",
+    "_": "El responsable y el correo son los del asesor cliente (o de quien responda por los datos). Sin ellos el aviso de datos no sirve.",
     "responsable": "",
     "correo": "",
     "ciudad": "Medellín, Colombia",
@@ -607,5 +604,343 @@
     }
   },
   "notaPrecio": "Precio sugerido de lista, con impuestos incluidos",
-  "notaVersiones": "Precios de la lista vigente con impuestos incluidos; el CRM los actualiza en vivo. Escríbeme y te confirmo el del día y si hay bono."
+  "notaVersiones": "Precios de la lista vigente con impuestos incluidos; el CRM los actualiza en vivo. Escríbeme y te confirmo el del día y si hay bono.",
+  "heroFoto": {
+    "src": "avenger-hero.jpg",
+    "alt": "Jeep Avenger gris en terreno rocoso",
+    "proporcion": "3/2",
+    "foco": "center 60%"
+  },
+  "comparativas": [
+    {
+      "id": "wrangler",
+      "ruta": "/jeep-wrangler-sport-vs-rubicon-medellin.html",
+      "corto": "Wrangler Sport o Rubicon",
+      "resumen": "Qué cambia de verdad entre los dos y para quién es cada uno.",
+      "titulo": "Wrangler Sport vs Rubicon: cuál comprar | Comparativa",
+      "h1": "Jeep Wrangler Sport o Rubicon: ¿cuál te conviene?",
+      "descripcion": "Wrangler Unlimited Sport vs Rubicon: mismo motor 2.0 turbo de 270 HP, pero distinta transferencia, ejes y llantas. Precio, ficha lado a lado y cuál comprar.",
+      "bajada": "Los dos tienen el mismo motor 2.0 turbo de 270 HP y la misma caja automática de 8. La diferencia está en todo lo que sirve para la trocha.",
+      "foto": {
+        "src": "wrangler-hero.jpg",
+        "alt": "Jeep Wrangler Unlimited rojo",
+        "fondo": "blanco",
+        "ajuste": "completa"
+      },
+      "columnas": [
+        "Wrangler Unlimited Sport",
+        "Wrangler Unlimited Rubicon"
+      ],
+      "filas": [
+        [
+          "Precio sugerido",
+          "$322.990.000",
+          "$364.990.000"
+        ],
+        [
+          "Motor",
+          "2.0 turbo, 270 HP, 400 Nm",
+          "2.0 turbo, 270 HP, 400 Nm"
+        ],
+        [
+          "Caja",
+          "Automática de 8",
+          "Automática de 8"
+        ],
+        [
+          "Transferencia",
+          "Selec-Trac, reducción 2,72:1",
+          "Rock-Trac, reducción 4,0:1"
+        ],
+        [
+          "Ejes",
+          "Dana rígidos",
+          "Dana con bloqueo Tru-Lok; trasero Dana 44 HD"
+        ],
+        [
+          "Barra estabilizadora desconectable",
+          "No",
+          "Sí"
+        ],
+        [
+          "Despeje al piso",
+          "246 mm",
+          "274 mm"
+        ],
+        [
+          "Ángulo de entrada / salida",
+          "41,4° / 36,1°",
+          "43,9° / 37°"
+        ],
+        [
+          "Ángulo ventral",
+          "20,3°",
+          "22,6°"
+        ],
+        [
+          "Llantas",
+          "245/75 R17 All-Terrain",
+          "255/75 R17 Mud-Terrain"
+        ],
+        [
+          "Arrastre",
+          "1.587 kg",
+          "2.268 kg"
+        ],
+        [
+          "Cámara todoterreno",
+          "No",
+          "Sí"
+        ],
+        [
+          "Tapicería",
+          "Tela",
+          "Cuero"
+        ],
+        [
+          "Asiento del conductor",
+          "Ajuste manual",
+          "Ajuste eléctrico"
+        ],
+        [
+          "Toma de 230 V",
+          "No",
+          "Sí"
+        ]
+      ],
+      "veredicto": [
+        [
+          "Sport, si…",
+          "Tu plan es ciudad, carretera y paseos con destapado. Ya es un 4x4 de verdad con reducción, y te ahorras cerca de 42 millones."
+        ],
+        [
+          "Rubicon, si…",
+          "Vas a hacer trocha en serio: barro, piedra, pasos de río. Los bloqueos, la reducción 4:1, la barra desconectable y las llantas de barro son los que te sacan de donde el Sport se queda."
+        ]
+      ],
+      "modelos": [
+        "WRANGLER"
+      ],
+      "preguntas": [
+        [
+          "¿El Rubicon tiene más motor que el Sport?",
+          "No. Los dos tienen el 2.0 turbo de 270 HP y 400 Nm con caja automática de 8. El Rubicon cambia en la transferencia, los ejes, las llantas y el equipamiento."
+        ],
+        [
+          "¿Hay Wrangler Rubicon de 2 puertas?",
+          "Sí, el Wrangler Rubicon 2 puertas está en la lista desde $350.990.000. Es más corto y ágil en la trocha; el Unlimited de 4 puertas es el que sirve para la familia."
+        ]
+      ]
+    },
+    {
+      "id": "avenger",
+      "ruta": "/jeep-avenger-gasolina-hibrido-electrico-medellin.html",
+      "corto": "Avenger: gasolina, híbrido o eléctrico",
+      "resumen": "Las tres versiones del Avenger y cuál te sirve según cómo manejas.",
+      "titulo": "Avenger gasolina, híbrido o eléctrico: cuál comprar",
+      "h1": "Jeep Avenger: ¿gasolina, híbrido o eléctrico?",
+      "descripcion": "Avenger 1.2 turbo manual, híbrido ligero MHEV o 100% eléctrico: precio, potencia, caja y equipamiento lado a lado. Cuál te conviene en Medellín.",
+      "bajada": "El mismo Avenger compacto en tres versiones de motor. Depende de cuánto manejas, dónde cargas y cuánto quieres invertir.",
+      "foto": {
+        "src": "avenger-hero.jpg",
+        "alt": "Jeep Avenger gris en terreno rocoso"
+      },
+      "columnas": [
+        "Altitude MT (gasolina)",
+        "MHEV (híbrido ligero)",
+        "BEV Summit (eléctrico)"
+      ],
+      "filas": [
+        [
+          "Precio sugerido",
+          "$99.900.000",
+          "$109.990.000 (Altitude) · $121.990.000 (Summit)",
+          "$162.990.000"
+        ],
+        [
+          "Motor",
+          "1.2 turbo",
+          "1.2 turbo + motor eléctrico 48V",
+          "100% eléctrico"
+        ],
+        [
+          "Potencia",
+          "100 CV",
+          "110 HP combinados",
+          "154 HP"
+        ],
+        [
+          "Torque",
+          "205 Nm",
+          "205 Nm",
+          "260 Nm"
+        ],
+        [
+          "Caja",
+          "Manual de 6",
+          "Doble embrague e-DCT6",
+          "—"
+        ],
+        [
+          "Autonomía",
+          "—",
+          "—",
+          "400 km (ciclo WLTP)"
+        ],
+        [
+          "Rin",
+          "17\" bitono",
+          "17\" (Altitude) · 18\" bitono (Summit)",
+          "18\" bitono"
+        ],
+        [
+          "Baúl",
+          "355 L",
+          "355 L",
+          "355 L"
+        ],
+        [
+          "Airbags",
+          "6",
+          "6",
+          "6"
+        ],
+        [
+          "Frenado autónomo y crucero adaptativo",
+          "Sí",
+          "Sí",
+          "Sí"
+        ],
+        [
+          "Alerta de punto ciego",
+          "No",
+          "Solo Summit",
+          "Sí"
+        ],
+        [
+          "Techo",
+          "Bitono",
+          "Bitono; solar eléctrico en Summit",
+          "Panorámico bitono"
+        ]
+      ],
+      "veredicto": [
+        [
+          "Gasolina, si…",
+          "Quieres entrar a Jeep al menor precio y no te molesta la caja manual."
+        ],
+        [
+          "Híbrido ligero, si…",
+          "Manejas mucho en el trancón de Medellín y quieres caja automática y gastar menos gasolina, sin enchufar nada."
+        ],
+        [
+          "Eléctrico, si…",
+          "Puedes cargar en la casa o en el trabajo y tus recorridos diarios caben de sobra en 400 km."
+        ]
+      ],
+      "modelos": [
+        "AVENGER"
+      ],
+      "preguntas": [
+        [
+          "¿El Avenger híbrido se enchufa?",
+          "No. El MHEV es un híbrido ligero de 48 voltios: la batería se carga sola al frenar y desacelerar. Se tanquea gasolina como siempre."
+        ],
+        [
+          "¿El Avenger eléctrico tiene pico y placa?",
+          "La exención depende de la normativa vigente y de cómo quede matriculado. Lo verificamos con Movilidad antes de que compres."
+        ]
+      ]
+    },
+    {
+      "id": "ram",
+      "ruta": "/ram-700-vs-ram-1500-medellin.html",
+      "corto": "RAM 700 o RAM 1500",
+      "resumen": "La pick-up compacta contra la grande: carga, arrastre y precio.",
+      "titulo": "RAM 700 vs RAM 1500: cuál pick-up comprar en Medellín",
+      "h1": "RAM 700 o RAM 1500: ¿cuál pick-up necesitas?",
+      "descripcion": "RAM 700 1.3 vs RAM 1500 V6 eTorque 4x4: precio, motor, carga, arrastre y platón lado a lado. Cuál te sirve para trabajar o para la familia.",
+      "bajada": "Las dos son RAM, pero son camionetas para trabajos muy distintos. La 700 es la compacta y económica; la 1500 es la grande, 4x4 y para remolcar.",
+      "foto": {
+        "src": "ram1500-hero.jpg",
+        "alt": "RAM 1500 Night Edition negra en la ciudad de noche"
+      },
+      "columnas": [
+        "RAM 700 (doble cabina)",
+        "RAM 1500 Big Horn"
+      ],
+      "filas": [
+        [
+          "Precio sugerido desde",
+          "$92.990.000 (Big Horn MT) · cabina sencilla $75.990.000",
+          "$277.990.000"
+        ],
+        [
+          "Motor",
+          "1.3 Firefly, 98 HP",
+          "3.6 V6 eTorque (híbrido ligero), 305 HP"
+        ],
+        [
+          "Torque",
+          "128 Nm",
+          "486 Nm"
+        ],
+        [
+          "Caja",
+          "Manual de 5 o CVT de 7",
+          "Automática de 8"
+        ],
+        [
+          "Tracción",
+          "Delantera",
+          "4x4 con reducción"
+        ],
+        [
+          "Capacidad de carga",
+          "650 kg",
+          "818 kg"
+        ],
+        [
+          "Arrastre",
+          "—",
+          "2.900 kg con frenos"
+        ],
+        [
+          "Platón (largo × ancho)",
+          "1.015 × 1.310 mm",
+          "1.711 × 1.687 mm"
+        ],
+        [
+          "Largo total",
+          "4.474 mm",
+          "5.916 mm"
+        ],
+        [
+          "Pantalla",
+          "7\" con CarPlay y Android Auto",
+          "12\" con CarPlay y Android Auto inalámbricos"
+        ]
+      ],
+      "veredicto": [
+        [
+          "RAM 700, si…",
+          "Necesitas una pick-up para el negocio o la finca que cargue hasta 650 kg, sea fácil de parquear y gaste poco."
+        ],
+        [
+          "RAM 1500, si…",
+          "Vas a remolcar (lancha, tráiler, caballos), necesitas 4x4 o quieres la pick-up más completa y cómoda de la vitrina."
+        ]
+      ],
+      "modelos": [
+        "RAM-700",
+        "RAM-1500"
+      ],
+      "preguntas": [
+        [
+          "¿La RAM 700 es 4x4?",
+          "No, es de tracción delantera. Para 4x4 en RAM está la 1500, y en Jeep el Gladiator."
+        ]
+      ]
+    }
+  ]
 }

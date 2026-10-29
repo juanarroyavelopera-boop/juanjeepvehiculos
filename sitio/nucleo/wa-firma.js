@@ -69,6 +69,13 @@
   }
   document.addEventListener('click', alClic, true);
   document.addEventListener('auxclick', alClic, true); // abrir en pestaña nueva
+  // Segunda pasada, DESPUÉS de los manejadores de cada botón: un botón que
+  // reescribe su href en su propio onclick (simulador de crédito, guías)
+  // borraba la firma que la fase de captura acababa de poner. El navegador
+  // abre el enlace cuando terminan todos los listeners, así que este último
+  // pase es el que manda. (Aprendido en Suzuki, oct-2026.)
+  document.addEventListener('click', alClic, false);
+  document.addEventListener('auxclick', alClic, false);
 
   // Pases sobre el DOM para que el href ya este firmado si alguien copia el
   // enlace con clic derecho, y para el catalogo que se pinta despues de cargar.

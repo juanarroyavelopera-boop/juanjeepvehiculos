@@ -44,6 +44,12 @@
 - OJO: los PDF que llegan por WhatsApp se revisan página por página antes de publicarlos: uno traía la cédula de una clienta.
 - OJO: las fichas del Wrangler traen la página de colores del Fiat Fastback: no confiar en la ficha sin mirarla.
 
+## Lo que se trajo de Suzuki (revisión para pauta, oct-2026) — ya en la plantilla
+- Medición: firma de WhatsApp también en fase burbuja; QR en computador (wa-qr.js + qr-lib.js + puente ir.html); la conversión de Google solo cuenta cuando WhatsApp de verdad abre (wa-conversion.js, lee la etiqueta de la ficha); Lead de Meta solo con apertura real y "Llamar" solo en celular; cualquier enlace a WhatsApp se mide; ViewContent en las fichas con los ids del catálogo del CRM; Clarity si la ficha lo trae.
+- Celular: burbuja compacta (círculo) en vez de barra a lo ancho; filas de versiones que abren WhatsApp con la versión; ficha técnica plegada a 6 renglones.
+- SEO: página de precios de todo el portafolio, comparativas, robots con bots de IA, llms.txt, clave IndexNow, títulos ≤60 y descripciones ≤160 recortados solos.
+- Sitio para asesor CLIENTE: el asesor es configurable (nombre, foto); sin datos la página dice "tu asesor" y los mensajes arrancan con "Hola,".
+
 ## Registro de retroalimentación
 | Mejora | Nació en | Devuelta a |
 |---|---|---|
@@ -52,4 +58,8 @@
 | Dos marcas en un sitio (`marca` por modelo) | Jeep | pendiente: plantilla compartida |
 | Fichas PDF descargables por modelo | Suzuki (idea) → Jeep (plantilla) | pendiente: Citroën |
 | Notas de precio por contenido | Jeep | pendiente: plantilla compartida |
+| Medición QR + conversión real + Lead real | Suzuki | Jeep ✅ (plantilla) · pendiente: Citroën |
+| Burbuja compacta, filas de versiones a WhatsApp | Suzuki | Jeep ✅ (plantilla) · pendiente: Citroën |
+| Página de precios, comparativas, llms.txt | Suzuki | Jeep ✅ (plantilla) · pendiente: Citroën |
+| Asesor configurable (sitio para cliente) | Jeep | pendiente: plantilla compartida |
 | WhatsApp con mensaje por botón | Invercrédito | pendiente: todas |

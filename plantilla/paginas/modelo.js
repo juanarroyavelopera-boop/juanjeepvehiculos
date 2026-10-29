@@ -45,7 +45,7 @@ ${encabezado(marca, marca.modelos)}
       <div class="hero-acciones">
         ${boton(marca, {
           texto: `Cotizar ${art} ${modelo.nombre}`,
-          mensaje: `Hola ${marca.asesor}, quiero cotizar ${art} ${NC}.`,
+          mensaje: `${marca.hola} quiero cotizar ${art} ${NC}.`,
           ctx: `${ctx}_hero`,
           clase: "grande",
           estado: true,
@@ -110,13 +110,17 @@ ${seccionColores(marca, modelo, c)}
         versiones.length
           ? versiones
               .map(
-                (v) => `<div class="ver-row">
+                // Cada fila abre WhatsApp con la versión escrita: en Suzuki las
+                // filas eran el clic muerto más tocado de las fichas (Clarity).
+                (v) => `<a class="ver-row wa-extra" data-ctx="${esc(ctx)}_version" href="${esc(
+                  wa(marca, `${marca.hola} me interesa ${art} ${NC} versión ${v.nombre} (${cop(v.precio)}). ¿Me das el precio del día y la cuota?`),
+                )}">
         <div>
           <div class="nom">${esc(v.nombre)}</div>
           <div class="det">${esc(v.detalle || "")}</div>
         </div>
-        <div class="pr">${cop(v.precio)}</div>
-      </div>`,
+        <div class="pr">${cop(v.precio)}<span class="ver-wa">Cotizar ›</span></div>
+      </a>`,
               )
               .join("\n      ")
           : `<p style="color:var(--suave);text-align:center">Escríbeme y te paso las versiones con el precio del día.</p>`
@@ -125,7 +129,7 @@ ${seccionColores(marca, modelo, c)}
     <div style="text-align:center;margin-top:24px">
       ${boton(marca, {
         texto: "Preguntar por una versión",
-        mensaje: `Hola ${marca.asesor}, quiero saber más de las versiones d${art} ${NC}.`,
+        mensaje: `${marca.hola} quiero saber más de las versiones d${art} ${NC}.`,
         ctx: `${ctx}_versiones`,
       })}
     </div>
@@ -144,11 +148,26 @@ ${
   <div class="env" style="max-width:840px">
     <h2 class="sec-title">Lo esencial ${del} ${esc(modelo.nombre)}</h2>
     <p class="sec-sub">Sacado de la ficha técnica de ${esc(marcaDe(marca, modelo))}, sin adornos.</p>
-    <div class="envuelve-tabla">
+    <div class="envuelve-tabla${(c.specs || []).length > 6 ? " plegable" : ""}" id="tabla-specs">
       <table class="tabla">
         ${(c.specs || []).map(([k, v]) => `<tr><td>${esc(k)}</td><td>${esc(v)}</td></tr>`).join("\n        ")}
       </table>
     </div>
+    ${(c.specs || []).length > 6 ? `<p class="ver-mas-specs"><button type="button" class="boton fantasma" aria-controls="tabla-specs" aria-expanded="false">Ver la ficha completa</button></p>
+    <script>
+    /* En celular la ficha larga se pliega a 6 renglones (aprendido en Suzuki:
+       la gente bajaba sin leer y no llegaba al botón). El HTML completo sigue
+       ahí para Google; solo se oculta con CSS. */
+    (function () {
+      var t = document.getElementById('tabla-specs'), b = document.querySelector('.ver-mas-specs button');
+      if (!t || !b) return;
+      b.addEventListener('click', function () {
+        var abierta = t.classList.toggle('abierta');
+        b.setAttribute('aria-expanded', String(abierta));
+        b.textContent = abierta ? 'Ver menos' : 'Ver la ficha completa';
+      });
+    })();
+    </script>` : ""}
     ${
       (c.fichas || []).length
         ? `<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:22px">
@@ -168,7 +187,7 @@ ${
     <div style="margin-top:24px">
       ${boton(marca, {
         texto: "Agendar una prueba de ruta",
-        mensaje: `Hola ${marca.asesor}, quiero hacer una prueba de ruta d${art} ${NC}.`,
+        mensaje: `${marca.hola} quiero hacer una prueba de ruta d${art} ${NC}.`,
         ctx: `${ctx}_prueba_ruta`,
       })}
     </div>
@@ -207,7 +226,7 @@ ${
 ${pie(marca, {
   tituloFinal: `¿Listo para estrenar tu ${modelo.nombre}?`,
   textoFinal: `Te digo el precio del día, qué bono hay vigente y cómo te queda la cuota. Sin compromiso.`,
-  mensajeFinal: `Hola ${marca.asesor}, quiero estrenar ${art} ${NC}.`,
+  mensajeFinal: `${marca.hola} quiero estrenar ${art} ${NC}.`,
   ctxFinal: `${ctx}_cierre_final`,
 })}`;
 };
@@ -237,7 +256,7 @@ function seccionColores(marca, modelo, c) {
       ${colores
         .map(
           (k) => `<a class="color" data-wa data-ctx="color_${esc(ctx)}" href="${esc(
-            wa(marca, `Hola ${marca.asesor}, me interesa ${art} ${NC} en color ${k.nombre}. ¿Hay disponible?`),
+            wa(marca, `${marca.hola} me interesa ${art} ${NC} en color ${k.nombre}. ¿Hay disponible?`),
           )}">
         <span class="color-foto"><img src="fotos/${esc(k.src)}" alt="${esc(`${NC} color ${k.nombre}`)}" loading="lazy" decoding="async"></span>
         <span class="color-nombre">${esc(k.nombre)}</span>
